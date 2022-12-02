@@ -11,6 +11,10 @@ export default function Home() {
       <Link href={'/login'}>login</Link>
       <br/>
       <Link href={'/signup'}>signup</Link>
+      <br/>
+      <Link href={'/viewuser'}>viewUserDetail</Link>
+      <br/>
+      <Link href={'/viewhistory'}>viewhistory</Link>
       <BsEnvelope />
     </div>
   )
