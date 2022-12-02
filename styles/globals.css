@@ -1,26 +1,383 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+img,
+video {
+  width: 100%;
+}
+.container {
+  max-width: 1340px;
+  margin: auto;
+  width: 100%;
+  padding: 0 2rem;
+}
+:root {
+  --primary: #008039;
+  --secoundary: #88ff55;
+}
+a,
+p,
+button,
+input,
+select {
+  font-size: 1.6rem;
+}
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 8rem;
+  background: var(--primary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.156);
+  z-index: 999;
+}
+.logo img {
+  height: 6rem;
+}
+header button {
+  background: transparent;
+  color: white;
+  transition: 0.3s;
+  border: 1px solid white;
+  border-radius: 5rem;
+}
+header button:hover {
+  background: white;
+  color: var(--primary);
+}
+header .container,
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: 5rem;
+}
+.links a {
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+header.sticky {
+  background: var(--primary) !important;
+  transition: 0.3s;
+}
+button {
+  padding: 1.5rem 3rem;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+main {
+  background: url(/main.png);
+  width: 100%;
+  min-height: 80rem;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  overflow: hidden;
+  padding-top: 8rem;
 }
 
-@media (prefers-color-scheme: dark) {
+.overlay {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  animation: leav 5s linear infinite;
+}
+.lnks a {
+  transition: 0.3s;
+}
+.links a.active {
+  color: var(--secoundary);
+}
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5rem;
+  align-items: center;
+  position: relative;
+}
+[class*="title"] {
+  font-family: "Audiowide", cursive;
+}
+.content {
+  position: relative;
+  z-index: 1;
+}
+.content h1 {
+  font-size: 10rem;
+  text-transform: capitalize;
+  color: white;
+  line-height: 1.2;
+}
+.content h1 span {
+  color: var(--secoundary);
+}
+
+.wheel {
+  animation: spin 5s linear infinite;
+  /* width: 80%;
+  position: absolute;
+  right: -30rem;
+  top: -37rem; */
+}
+@keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes leav {
+  0% {
+    transform: translateY(-20%);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20%);
+  }
+}
+.ticket-form {
+  position: relative;
+  border-radius: 1rem;
+  margin-top: 3rem;
+}
+.ticket-form form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-radius: 5rem;
+  overflow: hidden;
+}
+.ticket-form input {
+  background: white;
+  width: 100%;
+  height: 6rem;
+  padding: 0 3rem;
+}
+.ticket-form button {
+  height: 6rem;
+  width: 40%;
+}
+
+.sign {
+  background: white;
+  width: 50%;
+  margin: auto;
+  padding: 5rem;
+}
+.fild {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  height: 6rem;
+  background: #f1fff8;
+  margin-bottom: 1.5rem;
+  border-radius: 5rem;
+}
+.fild .i {
+  height: 6rem;
+  width: 6rem;
+  background: var(--primary);
+  border-radius: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  overflow: hidden;
+}
+.fild input {
+  height: 100%;
+  width: 100%;
+  padding: 0 2rem;
+  background: transparent;
+}
+.sign button {
+  width: 100%;
+  border-radius: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.sign h1 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+button img {
+  height: 3rem;
+  width: 3rem;
+}
+.social {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.social button {
+  background: #f1fff8;
+  color: black;
+}
+.ask {
+  text-align: center;
+  margin-top: 2rem;
+}
+.ask a {
+  color: var(--primary);
+  font-weight: 600;
+}
+@media (max-width: 991px) {
   html {
-    color-scheme: dark;
+    font-size: 45%;
   }
-  body {
+}
+.menu {
+  display: none;
+}
+@media (max-width: 660px) {
+  html {
+    font-size: 60%;
+  }
+  header .links {
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: calc(100vh - 8rem);
+    top: 8rem;
+    left: 0;
+    background: white;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    transform: translateX(100%);
+  }
+  .links.active {
+    transform: translateX(0) !important;
+  }
+  header {
+    background: var(--primary);
+  }
+  header .links a {
+    color: black;
+  }
+  header .links a.active {
+    color: var(--primary);
+  }
+  main {
+    padding: 5rem 0;
+    height: 100%;
+    min-height: unset;
+    margin-top: 5rem;
+  }
+  .title {
+    font-size: 5rem !important;
+    text-align: center;
+  }
+  .row {
+    grid-template-columns: 1fr;
+  }
+  .ticket-form form {
+    flex-direction: column;
+    height: 100%;
+    overflow: unset;
+  }
+  .ticket-form button {
+    width: 100%;
+  }
+  header .container {
+    gap: 1rem;
+  }
+  .dd {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .menu {
     color: white;
-    background: black;
   }
+  .menu {
+    display: block;
+    font-size: 3rem;
+  }
+  .user-profile {
+    padding: 2rem !important;
+    width: 100% !important;
+  }
+  .buttons {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .sign {
+    width: 100%;
+    padding: 2rem;
+  }
+  .social {
+    grid-template-columns: 1fr;
+  }
+  .container {
+    margin: 0 auto;
+  }
+}
+footer {
+  padding: 5rem 0;
+  background: var(--primary);
+}
+footer .container {
+  display: flex;
+  align-items: flex-end;
+}
+.signup {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  max-width: 50rem;
+}
+.signup button {
+  height: 6rem;
+  background: var(--secoundary);
+  color: black;
+}
+.signup input {
+  height: 6rem;
+  background: white;
+  width: 100%;
+  padding: 0 3rem;
+}
+#mce-responses {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+#mce-success-response {
+  color: white;
+}
+#mce-error-response {
+  color: red !important;
+}
+#mc_embed_signup div.mce_inline_error {
+  background-color: #f1fff8;
+  color: red;
 }
