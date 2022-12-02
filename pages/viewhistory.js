@@ -3,7 +3,10 @@ import WhiteHeader from "./components/WhiteHeader";
 const viewHistory = () => {
     return ( 
         <>
-       <WhiteHeader />
+        <div className="headercontainer">
+        <WhiteHeader />
+        </div>
+ 
         <div className="viewhistorycontainer">
 
           <div className="contest-result">

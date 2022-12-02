@@ -43,6 +43,16 @@ header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.156);
   z-index: 999;
 }
+
+.headercontainer {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.156);
+  z-index: 999;
+}
 .logo img {
   height: 6rem;
 }
@@ -830,5 +840,7 @@ label {
     padding-right:10% ;
     display:flex;
     flex-direction: column;
+    padding-bottom: 100px;
+    padding-top: 50px;
   }
 }
