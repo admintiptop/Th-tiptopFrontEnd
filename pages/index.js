@@ -15,6 +15,15 @@ export default function Home() {
       <Link href={'/viewuser'}>viewUserDetail</Link>
       <br/>
       <Link href={'/viewhistory'}>viewhistory</Link>
+      <br/>
+      <br/>
+      <Link href={'/admin/addemployee'}>addemployee</Link>
+      <br/>
+      <Link href={'/admin/addprizes'}>addprizes</Link>
+      <br/>
+      <Link href={'/admin/contestlist'}>contestlist</Link>
+      <br/>
+      <Link href={'/admin/viewusers'}>viewusers</Link>
       <BsEnvelope />
     </div>
   )
