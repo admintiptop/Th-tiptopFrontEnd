@@ -2,7 +2,7 @@ import SideMenu from "../../components/SideMenu";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { BsPlusLg } from 'react-icons/bs';
-
+import Link from "next/link";
 
 
 const AddEmployee = () => {
@@ -45,7 +45,7 @@ const AddEmployee = () => {
               <div className="contest-list">
                 <div className="headerwithbutton">
                 <div><h2>Employees</h2></div>
-                <div><button><BsPlusLg/> New Employee</button></div>
+                <div><Link href='/admin/createemployee'><button><BsPlusLg/> New Employee</button></Link></div>
                 </div>
                 <div className="table">
                   <table>

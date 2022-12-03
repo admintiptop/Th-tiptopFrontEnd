@@ -1,33 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SideMenu from "../../components/SideMenu";
-import {BsPlusLg} from 'react-icons/bs'
-
+import {BsPlusLg} from 'react-icons/bs';
+import axios from "axios";
 
 const AddPrizes = () => {
 
-  const [prizes, SetPrizes] =useState([
-    {id:1,
-      name:'$24',
-      winningChance:50},
-    {id:2,
-      name:'$46',
-      winningChance:30},
-    {id:3,
-      name:'$67',
-      winningChance:10},
-    {id:4,
-      name:'$140',
-      winningChance:5},
-    {id:5,
-      name:'$150',
-      winningChance:5},
-  ])
+  const [prizes, SetPrizes] =useState();
+  const [name, SetName] = useState();
+  const [winningChance, SetWinningChance] = useState();
+  useEffect(() => {
+      getPrices();
+  }, []);
 
-  //    useEffect(() => {
-  //   axios
-  //     .get("https://jsonplaceholder.typicode.com/users")
-  //     .then(response => SetPrizes(response.data));
-  // }, []);
+  const getPrices = () => {
+    axios.get("http://localhost:3001/api/v1/prices").then((response) => {
+      SetPrizes(response.data);
+  });
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const price = { name, winningChance };
+    await fetch('http://localhost:3001/api/v1/prices', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(price)
+    }).then(res => {
+      getPrices();
+      SetName("");
+      SetWinningChance("");
+    })
+  }
  
   return (
     <div>
@@ -43,11 +46,10 @@ const AddPrizes = () => {
                   <th>Prize name</th>
                   <th>Winning chance</th>
                 </tr>
-
                 {
-                  prizes.map((prize)=>(
-                    <tr key={prize.id}>
-                    <td>{prize.id}</td>
+                  prizes?.map((prize,index = 0)=>(
+                    <tr key={index}>
+                    <td>{index+1}</td>
                     <td>{prize.name}</td>
                     <td>{prize.winningChance}%</td>
                   </tr>
@@ -59,9 +61,9 @@ const AddPrizes = () => {
         </div>
         <form action="#">
           <div className="add">
-            <input type="text" placeholder="Prize name" />
-            <input type="number" placeholder="Winning chance in %" />
-            <button><BsPlusLg/> Add List Item</button>
+            <input type="text" placeholder="Prize name" value={name} onChange={(e) => SetName(e.target.value)} />
+            <input type="number" placeholder="Winning chance in %" value={winningChance} onChange={(e) => SetWinningChance(e.target.value)} />
+            <button onClick={handleSubmit}><BsPlusLg/> Add List Item</button>
           </div>
         </form>
       </div>

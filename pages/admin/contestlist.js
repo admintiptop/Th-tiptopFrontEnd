@@ -1,10 +1,12 @@
 import { useState } from "react";
 import SideMenu from "../../components/SideMenu";
 import { BsPlusLg } from 'react-icons/bs';
+import Link from "next/link";
 
 
 
 const ContestList = () => {
+
   const [contests, SetContests] = useState([
     {
       id: 1,
@@ -51,7 +53,7 @@ const ContestList = () => {
             <div className="contest-list">
               <div className="headerwithbutton">
                 <div><h2>Contest List</h2></div>
-                <div><button><BsPlusLg/> New Contest</button></div>
+                <div><Link href='/admin/createcontest'><button><BsPlusLg/> New Contest</button></Link></div>
                 </div>
               
               <div className="table">

@@ -674,7 +674,7 @@ padding-bottom: 10px;
   margin: auto;
   margin-bottom: 5rem;
 }
-.create-contest {
+.create-contest, .create-employee {
   max-width: 60rem;
   margin: auto;
   padding: 3rem;
@@ -682,6 +682,8 @@ padding-bottom: 10px;
 }
 .create-contest input,
 .create-contest select,
+.create-employee input,
+.create-employee select,
 .search input {
   width: 100%;
   height: 6rem;
@@ -689,14 +691,14 @@ padding-bottom: 10px;
   margin-bottom: 1.5rem;
   padding: 0 3rem;
 }
-.create-contest button {
+.create-contest button , .create-employee button{
   width: 100%;
 }
 label {
   font-size: 1.3rem;
   font-weight: 700;
 }
-.create-contest h2 {
+.create-contest h2, .create-employee h2 {
   font-size: 3rem;
   text-align: center;
   margin-bottom: 2rem;
@@ -904,3 +906,46 @@ label {
     padding-top: 50px;
   }
 /* } */
+
+.fieldname{
+  font-size: small;
+  color: #008039;
+}
+
+.percentage{
+  font-weight: 400;
+}
+
+.NormalIndicator{
+  color: #000;
+}
+.OkIndicator{
+  color: green;
+}
+.ExeededIndicator{
+  color: red;
+}
+
+.invalid-feedback{
+  color:red;
+  font-size: small;
+  padding-left: 10px;
+  top:-20px,
+}
+
+.greenHeader{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 8rem;
+  background: var(--primary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.156);
+  z-index: 999; 
+}
+
+.indexfooter{
+  padding: 5rem 0;
+  background: var(--primary);
+  width: 100%;
+}
