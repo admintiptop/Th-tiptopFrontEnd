@@ -28,6 +28,13 @@ const AddEmployee = () => {
       email: "Usef2@gmail.com",
     },
   ]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("https://jsonplaceholder.typicode.com/users")
+  //     .then(response => setemployees(response.data));
+  // }, []);
+
   return (
     <div>
       <div>

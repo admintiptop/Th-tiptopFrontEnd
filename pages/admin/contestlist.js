@@ -36,7 +36,12 @@ const ContestList = () => {
     }
   ]);
 
-  const [length, setLength] = useState(4);
+  //   useEffect(() => {
+  //   axios
+  //     .get("https://jsonplaceholder.typicode.com/users")
+  //     .then(response => SetContests(response.data));
+  // }, []);
+
   return (
     <div>
       <SideMenu />

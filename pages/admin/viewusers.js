@@ -36,8 +36,10 @@ const ViewUsers = () => {
   ]);
 
   // useEffect(() => {
-
-  // }, [])
+  //   axios
+  //     .get("https://jsonplaceholder.typicode.com/users")
+  //     .then(response => setUsers(response.data));
+  // }, []);
 
   return (
     <div>
@@ -48,12 +50,15 @@ const ViewUsers = () => {
             <div className="contest-list">
               <div className="headerwithbutton">
                 <div><h2>Contest Participents</h2></div>
+                <div>
                 <div className="search">
                 <input type="text" placeholder="Search" />
                 <button>
                   <FaSearch />
                 </button>
               </div>
+                </div>
+                
                 </div>
 
               <div className="table">

@@ -23,6 +23,12 @@ const AddPrizes = () => {
       winningChance:5},
   ])
 
+  //    useEffect(() => {
+  //   axios
+  //     .get("https://jsonplaceholder.typicode.com/users")
+  //     .then(response => SetPrizes(response.data));
+  // }, []);
+ 
   return (
     <div>
       <SideMenu />
