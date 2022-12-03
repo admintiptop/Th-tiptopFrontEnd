@@ -1,5 +1,8 @@
 import { useState } from "react";
 import SideMenu from "../../components/SideMenu";
+import { BsPlusLg } from 'react-icons/bs';
+
+
 
 const ContestList = () => {
   const [contests, SetContests] = useState([
@@ -41,7 +44,11 @@ const ContestList = () => {
         <div className="wrapSection">
           <div className="block active">
             <div className="contest-list">
-              <h2>Contest List</h2>
+              <div className="headerwithbutton">
+                <div><h2>Contest List</h2></div>
+                <div><button><BsPlusLg/> New Contest</button></div>
+                </div>
+              
               <div className="table">
                 <table>
                   <tbody>

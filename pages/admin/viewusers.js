@@ -1,6 +1,7 @@
 import SideMenu from "../../components/SideMenu";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { BsPlusLg } from 'react-icons/bs';
 
 const ViewUsers = () => {
   const [users, setUsers] = useState([
@@ -45,13 +46,16 @@ const ViewUsers = () => {
         <div className="wrapSection">
           <div className="block active">
             <div className="contest-list">
-              <h2>Contest participents</h2>
-              <div className="search">
+              <div className="headerwithbutton">
+                <div><h2>Contest Participents</h2></div>
+                <div className="search">
                 <input type="text" placeholder="Search" />
                 <button>
                   <FaSearch />
                 </button>
               </div>
+                </div>
+
               <div className="table">
                 <table>
                   <tbody>

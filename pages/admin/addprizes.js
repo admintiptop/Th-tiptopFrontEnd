@@ -1,5 +1,7 @@
 import { useState } from "react";
 import SideMenu from "../../components/SideMenu";
+import {BsPlusLg} from 'react-icons/bs'
+
 
 const AddPrizes = () => {
 
@@ -53,7 +55,7 @@ const AddPrizes = () => {
           <div className="add">
             <input type="text" placeholder="Prize name" />
             <input type="number" placeholder="Winning chance in %" />
-            <button>List item</button>
+            <button><BsPlusLg/> Add List Item</button>
           </div>
         </form>
       </div>

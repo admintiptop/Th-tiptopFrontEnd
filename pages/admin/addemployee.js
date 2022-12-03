@@ -1,6 +1,9 @@
 import SideMenu from "../../components/SideMenu";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { BsPlusLg } from 'react-icons/bs';
+
+
 
 const AddEmployee = () => {
   const [employees, setemployees] = useState([
@@ -33,7 +36,10 @@ const AddEmployee = () => {
           <div className="wrapSection">
             <div className="block active">
               <div className="contest-list">
-                <h2>Employees</h2>
+                <div className="headerwithbutton">
+                <div><h2>Employees</h2></div>
+                <div><button><BsPlusLg/> New Employee</button></div>
+                </div>
                 <div className="table">
                   <table>
                     <tbody>
