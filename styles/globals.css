@@ -268,7 +268,7 @@ button img {
 }
 @media (max-width: 660px) {
   html {
-    font-size: 60%;
+    font-size: 50%;
   }
   header .links {
     position: fixed;
@@ -502,14 +502,29 @@ th {
 .winning-order h2,
 .contest-result h2,
 .history h2,
-.user-profile h2 {
+.user-profile h2,
+.wrapSection h2 {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  padding-bottom: 20px;
   text-align: center;
 }
 .contest-result h2 span {
   color: var(--primary);
 }
+.headerwithbutton{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(129, 129, 129);
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.headerwithbutton button{
+height: 50px;
+
+}
+
 .user-profile {
   width: 50%;
   margin: auto;
@@ -549,16 +564,28 @@ th {
   height: 100vh;
   display: flex;
   align-items: center;
-  gap: 3rem;
+  /* gap: 3rem; */
   flex-direction: column;
   justify-content: center;
   width: 10rem;
-  background: #f1fff8;
+  background: #e5f2eb;
   position: fixed;
   left: 0;
   top: 0;
 }
-.tab {
+.tabWrap{
+  width: 100%; 
+
+}
+.tabWrap p{
+  text-decoration: none;
+}
+
+.tab{
+width: 100%;
+padding-top: 10px;
+padding-bottom: 10px;
+  display: flex;
   cursor: pointer;
   text-align: center;
   display: flex;
@@ -566,12 +593,19 @@ th {
   justify-content: center;
   align-items: center;
 }
+.tab:hover{
+  cursor: pointer;
+  background-color:#cce5d7;
+  
+;
+}
 .tab.logout > div {
   background: red;
 }
 .tab p {
   font-weight: 600;
   font-size: 1.6rem;
+  color: black;
 }
 .tab > div {
   width: 6rem;
@@ -586,6 +620,31 @@ th {
 }
 .section {
   padding: 5rem;
+  width: 100%;
+  height: 100vh;
+  min-height: 80rem;
+  margin-left: 10rem;
+}
+.wrapSection {
+  padding: 2rem;
+  width: 100%;
+  height: 100vh;
+  min-height: 80rem;
+  /* margin-left: 10rem; */
+}
+
+@media (min-width: 660px) {
+  .wrapSection {
+    padding: 10rem;
+    width: 100%;
+    height: 100vh;
+    min-height: 80rem;
+    margin-left: 10rem;
+  }
+}
+.contestlistsection {
+  padding: 10rem;
+  padding-left: 10rem;
   width: 100%;
   height: 100vh;
   min-height: 80rem;
@@ -626,7 +685,7 @@ th {
 .search input {
   width: 100%;
   height: 6rem;
-  background: #f1fff8;
+  background: #e5f2eb;
   margin-bottom: 1.5rem;
   padding: 0 3rem;
 }
@@ -671,10 +730,10 @@ label {
 .search {
   display: flex;
   align-items: center;
-  max-width: 50rem;
-  margin: auto;
-  margin-top: 3rem;
-  margin-bottom: 2rem;
+  max-width: 100rem;
+  /* margin: auto; */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .search input {
   margin: unset;
@@ -699,6 +758,7 @@ label {
     justify-content: space-between;
     padding: 0 2rem;
     top: unset;
+
   }
   .buttons {
     gap: 1rem !important;
@@ -834,13 +894,13 @@ label {
   margin-top: 125px;
   transform: rotate(180deg);
 }
-@media (min-width: 1500px){
+/* @media (min-width: 1500px){ */
   .viewhistorycontainer {
     padding-left:10% ;
     padding-right:10% ;
     display:flex;
     flex-direction: column;
-    padding-bottom: 100px;
+    padding-bottom: 40rem;
     padding-top: 50px;
   }
-}
+/* } */
