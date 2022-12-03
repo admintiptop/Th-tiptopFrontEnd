@@ -4,6 +4,7 @@ import { FaRegIdCard } from "react-icons/fa";
 import { RiKey2Fill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import jwt from "jsonwebtoken";
 
 const Signup = () => {
   const [name, setName] = useState();
@@ -38,13 +39,28 @@ const Signup = () => {
     }
   };
 
+  const isAuthenticated = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (token != null) {
+        let jwtSecretKey = "gfg_jwt_secret_key";
+        const user = jwt.verify(token, jwtSecretKey);
+        router.push("http://localhost:3000");
+      } else {
+        console.log("Not log");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
+    isAuthenticated();
     getUser();
   }, []);
 
   const signUp = async (e) => {
     e.preventDefault();
-    console.log("signupdaaaaaaaaaaaaaaaaaa");
     const res = await fetch("http://localhost:3001/api/v1/auth/sign-up", {
       method: "post",
       headers: {
@@ -62,7 +78,7 @@ const Signup = () => {
     if (res.status == "200") {
       const data = await res.json();
       localStorage.setItem("accessToken", data.accessToken);
-      alert("Sign up successfull");
+      router.push("http://localhost:3000");
     } else {
     }
   };
@@ -155,7 +171,7 @@ const Signup = () => {
                 </button>
               </div>
               <p className="ask">
-                Already have an account? <a href="login.html">Login</a>
+                Already have an account? <a href="/login">Login</a>
               </p>
             </form>
           </div>

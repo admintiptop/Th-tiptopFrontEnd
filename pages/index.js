@@ -1,14 +1,47 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import Link from 'next/link'
-import { BsEnvelope } from 'react-icons/bs';
-
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import Link from "next/link";
+import { BsEnvelope } from "react-icons/bs";
+import { useEffect, useState } from "react";
+import jwt from "jsonwebtoken";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const [user, setUser] = useState(null);
+  const router = useRouter();
+
+  const isAuthenticated = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      if (token != null) {
+        let jwtSecretKey = "gfg_jwt_secret_key";
+        const user = jwt.verify(token, jwtSecretKey);
+        setUser(user);
+      } else {
+        console.log("not log");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      localStorage.removeItem("accessToken");
+      setUser(null);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    isAuthenticated();
+  }, []);
+
   return (
     <>
-     {/* <div className={styles.container}>
+      {/* <div className={styles.container}>
        <h1>Hello</h1>
        <Link href={'/login'}>login</Link>
        <br/>
@@ -31,121 +64,147 @@ export default function Home() {
        <BsEnvelope />
      </div> */}
 
-<div>
-    <header className='greenHeader'>
-      <div class="container">
-        <div class="logo">
-          <img src="/logo-white.svg" alt="" />
-        </div>
-        <div class="links">
-          <a href="#" class="active">HOME</a>
-          <a href="#">legal notice contest</a>
-        </div>
-        <div class="dd">
-          <Link href='/login'><button>Login</button></Link>
-          <i class="uil uil-align-center-alt menu"></i>
-        </div>
-      </div>
-    </header>
-    <main>
-      <div class="container">
-        <div class="row">
-          <div class="content">
-            <h1 class="title">
-              <span>thétiptop</span> play <span>=</span> win<span>!</span>
-            </h1>
-            <div class="ticket-form">
-              <form action="#">
-                <input
-                  type="text"
-                  placeholder="Your ticket number"
-                  
-                />
-                <button>Check ticket</button>
-              </form>
+      <div>
+        <header className="greenHeader">
+          <div class="container">
+            <div class="logo">
+              <img src="/logo-white.svg" alt="" />
+            </div>
+            <div class="links">
+              <a href="#" class="active">
+                HOME
+              </a>
+              <a href="#">legal notice contest</a>
+            </div>
+            <div class="dd">
+              {user == null ? (
+                <Link href="/login">
+                  <button>Login</button>
+                </Link>
+              ) : (
+                <div>
+                  <button>UserName : {user.name}</button>
+                </div>
+              )}
+              <i class="uil uil-align-center-alt menu"></i>
+            </div>
+            <div class="dd">
+              {user != null ? (
+                <button
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Log Out
+                </button>
+              ) : null}
+
+              <i class="uil uil-align-center-alt menu"></i>
             </div>
           </div>
-          <div class="ticket">
-            <img class="wheel" src="/wheel.png" alt="" />
-          </div>
-        </div>
-        <img src="/leav.png" class="overlay" alt="" />
-      </div>
-    </main>
-    <div>
-      <div class="container">
-        <div id="mc_embed_signup">
-          <form
-            action="https://gmail.us11.list-manage.com/subscribe/post?u=17eb0fc9f60a035f869b0fafd&amp;id=5805488496&amp;f_id=00b18de0f0"
-            method="post"
-            id="mc-embedded-subscribe-form"
-            name="mc-embedded-subscribe-form"
-            class="validate"
-            target="_blank"
-            novalidate
-          >
-            <div id="mc_embed_signup_scroll">
-              <div id="mce-responses" class="clear foot">
-                <div
-                  class="response"
-                  id="mce-error-response"
-                  // style={{display: none}}
-                ></div>
-                <div
-                  class="response"
-                  id="mce-success-response"
-                  // style={{display: none}}
-                ></div>
-              </div>
-              <footer className='indexfooter'>
-              <div class="signup">
-                <div class="mc-field-group" style={{marginLeft:'50px'}}>
-                  <input
-                    type="email"
-                    value=""
-                    name="EMAIL"
-                    placeholder="Email"
-                    class="required email"
-                    id="mce-EMAIL"
-                    required
-                  />
-                  <span id="mce-EMAIL-HELPERTEXT" class="helper_text"></span>
+        </header>
+        <main>
+          <div class="container">
+            <div class="row">
+              <div class="content">
+                <h1 class="title">
+                  <span>thétiptop</span> play <span>=</span> win<span>!</span>
+                </h1>
+                <div class="ticket-form">
+                  <form action="#">
+                    <input type="text" placeholder="Your ticket number" />
+                    <button>Check ticket</button>
+                  </form>
                 </div>
-                <div class="optionalParent">
-                  <div class="clear foot">
-                    <button
-                      type="submit"
-                      value="Subscribe"
-                      name="subscribe"
-                      id="mc-embedded-subscribe"
-                      class="button"
-                    >
-                      Subscribe
-                    </button>
+              </div>
+              <div class="ticket">
+                <img class="wheel" src="/wheel.png" alt="" />
+              </div>
+            </div>
+            <img src="/leav.png" class="overlay" alt="" />
+          </div>
+        </main>
+        <div>
+          <div class="container">
+            <div id="mc_embed_signup">
+              <form
+                action="https://gmail.us11.list-manage.com/subscribe/post?u=17eb0fc9f60a035f869b0fafd&amp;id=5805488496&amp;f_id=00b18de0f0"
+                method="post"
+                id="mc-embedded-subscribe-form"
+                name="mc-embedded-subscribe-form"
+                class="validate"
+                target="_blank"
+                novalidate
+              >
+                <div id="mc_embed_signup_scroll">
+                  <div id="mce-responses" class="clear foot">
+                    <div
+                      class="response"
+                      id="mce-error-response"
+                      // style={{display: none}}
+                    ></div>
+                    <div
+                      class="response"
+                      id="mce-success-response"
+                      // style={{display: none}}
+                    ></div>
+                  </div>
+                  <footer className="indexfooter">
+                    <div class="signup">
+                      <div
+                        class="mc-field-group"
+                        style={{ marginLeft: "50px" }}
+                      >
+                        <input
+                          type="email"
+                          value=""
+                          name="EMAIL"
+                          placeholder="Email"
+                          class="required email"
+                          id="mce-EMAIL"
+                          required
+                        />
+                        <span
+                          id="mce-EMAIL-HELPERTEXT"
+                          class="helper_text"
+                        ></span>
+                      </div>
+                      <div class="optionalParent">
+                        <div class="clear foot">
+                          <button
+                            type="submit"
+                            value="Subscribe"
+                            name="subscribe"
+                            id="mc-embedded-subscribe"
+                            class="button"
+                          >
+                            Subscribe
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </footer>
+
+                  {/* real people should not fill this in and expect good things - do not remove this or risk form bot signups */}
+                  <div
+                    // style={{position: absolute, left: '-5000px'}}
+                    aria-hidden="true"
+                  >
+                    <input
+                      type="text"
+                      name="b_17eb0fc9f60a035f869b0fafd_5805488496"
+                      tabindex="-1"
+                      value=""
+                    />
                   </div>
                 </div>
-              </div>
-              </footer>
-
-               {/* real people should not fill this in and expect good things - do not remove this or risk form bot signups */}
-              <div 
-              // style={{position: absolute, left: '-5000px'}} 
-              aria-hidden="true">
-                <input
-                  type="text"
-                  name="b_17eb0fc9f60a035f869b0fafd_5805488496"
-                  tabindex="-1"
-                  value=""
-                />
-              </div>
+              </form>
             </div>
-          </form>
-        </div>
-        <script
-          type="text/javascript"
-          src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"
-        ></script>
-        {/* <script type="text/javascript">
+            <script
+              type="text/javascript"
+              src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"
+            ></script>
+            {/* <script type="text/javascript">
           (function ($) {
             window.fnames = new Array();
             window.ftypes = new Array();
@@ -164,14 +223,13 @@ export default function Home() {
           })(jQuery);
           var $mcj = jQuery.noConflict(true);
         </script> */}
-        {/* End mc_embed_signup */}
+            {/* End mc_embed_signup */}
 
-        <div class="other-info"></div>
+            <div class="other-info"></div>
+          </div>
+        </div>
+        <script src="app.js"></script>
       </div>
-    </div>
-    <script src="app.js"></script>
-  </div>
-
     </>
-  )
+  );
 }
