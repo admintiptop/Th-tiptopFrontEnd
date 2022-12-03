@@ -57,9 +57,9 @@ export default function Home() {
             <div class="ticket-form">
               <form action="#">
                 <input
-                  id="ticket"
                   type="text"
                   placeholder="Your ticket number"
+                  
                 />
                 <button>Check ticket</button>
               </form>

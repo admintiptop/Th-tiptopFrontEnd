@@ -7,7 +7,7 @@ const CreateContest = () => {
   const [contestName,setContestName] =useState('');
   const [startDate,setstartDate] =useState('');
   const [endDate,setendDate] =useState('');
-  const [numOfTickets,setNumOfTickets] =useState(0);
+  const [numOfTickets,setNumOfTickets] =useState();
   
     //after api call, you should write to prizes with a mew variable "checked"
   const [prizes, SetPrizes] =useState([
@@ -43,7 +43,7 @@ const CreateContest = () => {
     ])
   const [sum,Setsum]=useState(0);
   const [indicator,setindicator] =useState(0); // 0 = not satisfied , 1 = satisfied, 2 = moreThantheshold
-  
+  const [buttonDisabled,SetButtonDisabled] =useState(true)
 
 
   function calc(val){
@@ -78,10 +78,6 @@ const CreateContest = () => {
     return indicator;
   }
 
-  function summation(a,b){
-    console.log(a+b)
-    return a+b;
-  }
 
   return (
     <div>
@@ -123,7 +119,11 @@ const CreateContest = () => {
                       )
                   }
                 </select>
-                <button>Create contest</button>
+                {
+                  sum===100 ? (<button disabled={false}>Create contest</button>)
+                  :(<button disabled={true} style={{backgroundColor:'grey'}}>Create contest</button>)
+                }
+                
               </form>
             </div>
           </div>
