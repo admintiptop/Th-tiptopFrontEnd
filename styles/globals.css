@@ -268,7 +268,7 @@ button img {
 }
 @media (max-width: 660px) {
   html {
-    font-size: 60%;
+    font-size: 50%;
   }
   header .links {
     position: fixed;
@@ -549,16 +549,28 @@ th {
   height: 100vh;
   display: flex;
   align-items: center;
-  gap: 3rem;
+  /* gap: 3rem; */
   flex-direction: column;
   justify-content: center;
   width: 10rem;
-  background: #f1fff8;
+  background: #e5f2eb;
   position: fixed;
   left: 0;
   top: 0;
 }
-.tab {
+.tabWrap{
+  width: 100%; 
+
+}
+.tabWrap p{
+  text-decoration: none;
+}
+
+.tab{
+width: 100%;
+padding-top: 10px;
+padding-bottom: 10px;
+  display: flex;
   cursor: pointer;
   text-align: center;
   display: flex;
@@ -566,12 +578,19 @@ th {
   justify-content: center;
   align-items: center;
 }
+.tab:hover{
+  cursor: pointer;
+  background-color:#cce5d7;
+  
+;
+}
 .tab.logout > div {
   background: red;
 }
 .tab p {
   font-weight: 600;
   font-size: 1.6rem;
+  color: black;
 }
 .tab > div {
   width: 6rem;
@@ -586,6 +605,31 @@ th {
 }
 .section {
   padding: 5rem;
+  width: 100%;
+  height: 100vh;
+  min-height: 80rem;
+  margin-left: 10rem;
+}
+.wrapSection {
+  padding: 2rem;
+  width: 100%;
+  height: 100vh;
+  min-height: 80rem;
+  /* margin-left: 10rem; */
+}
+
+@media (min-width: 660px) {
+  .wrapSection {
+    padding: 10rem;
+    width: 100%;
+    height: 100vh;
+    min-height: 80rem;
+    margin-left: 10rem;
+  }
+}
+.contestlistsection {
+  padding: 10rem;
+  padding-left: 10rem;
   width: 100%;
   height: 100vh;
   min-height: 80rem;
@@ -699,6 +743,7 @@ label {
     justify-content: space-between;
     padding: 0 2rem;
     top: unset;
+
   }
   .buttons {
     gap: 1rem !important;
