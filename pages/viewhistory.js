@@ -1,4 +1,4 @@
-import WhiteHeader from "./components/WhiteHeader";
+import WhiteHeader from "/components/WhiteHeader";
 
 const viewHistory = () => {
     return ( 
