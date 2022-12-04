@@ -33,8 +33,25 @@ const Login = () => {
     if (res.status == "200") {
       const data = await res.json();
       localStorage.setItem("accessToken", data.accessToken);
-      router.push("http://localhost:3000");
-    } else {
+      // router.push("http://localhost:3000");
+      const token = localStorage.getItem("accessToken");
+      if (token != null) {
+        let jwtSecretKey = "gfg_jwt_secret_key";
+        const user = jwt.verify(token, jwtSecretKey);
+        localStorage.setItem("username", user.name);
+
+      if(user.userType==="User"){
+        router.push("http://localhost:3000");
+      }else if(user.userType==="Admin"){
+        router.push("http://localhost:3000/admin/contestlist");
+      }else if(user.userType==="Employee"){
+        router.push("http://localhost:3000");
+      }else{
+        router.push("http://localhost:3000");
+      }
+    }
+    } else if(res.status == "422") {
+     alert("Invalid Email or Password")
     }
   };
 
@@ -44,7 +61,6 @@ const Login = () => {
       if (token != null) {
         let jwtSecretKey = "gfg_jwt_secret_key";
         const user = jwt.verify(token, jwtSecretKey);
-        router.push("http://localhost:3000");
       } else {
         console.log("Not log");
       }
@@ -60,7 +76,7 @@ const Login = () => {
   return (
     <>
       <div>
-        <header>
+        <header className="greenheader">
           <div className="container">
             <div className="logo">
               <img src="logo-white.svg" alt="" />
@@ -71,8 +87,8 @@ const Login = () => {
               </Link>
               <Link href="#">legal notice contest</Link>
             </div>
-            <Link href="#">
-              <button>Login</button>
+            <Link href="/signup">
+              <button>Signup</button>
             </Link>
           </div>
         </header>
@@ -127,10 +143,11 @@ const Login = () => {
               </p>
             </form>
           </div>
-        </main>
-        <footer>
+        {/* <footer className="notfixedFooter">
           <div className="container"></div>
-        </footer>
+        </footer> */}
+        </main>
+
       </div>
     </>
   );

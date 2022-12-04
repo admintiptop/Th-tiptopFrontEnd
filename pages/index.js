@@ -6,6 +6,11 @@ import { BsEnvelope } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
 import { useRouter } from "next/router";
+import { FaUserTie } from "react-icons/fa";
+
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -38,6 +43,61 @@ export default function Home() {
   useEffect(() => {
     isAuthenticated();
   }, []);
+
+  const validationSchema = Yup.object().shape({
+    ticketid: Yup.string()
+      .required("Ticket Id is required")      
+      .matches(
+        /^[0-9]{10}$/,
+        "Ticket Id format is invalid"
+      ),
+  });
+
+  const formOptions = { resolver: yupResolver(validationSchema) };
+
+  const { register, handleSubmit, reset, formState } = useForm(formOptions);
+  const { errors } = formState;
+
+  const onSubmit = async (e) => {
+
+    const token = localStorage.getItem("accessToken");
+      if (token == null) {
+        router.push("http://localhost:3000/login");
+      }
+
+    try{
+      const res = await fetch("http://localhost:3001/api/v1/contest-participents/ticket-validatation-requests", {
+        method: "post",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user.userId,
+          ticketId: e.ticketid
+        }),
+      });
+
+      const response = await res.json();
+      console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",response)
+
+      if (res.status == "201") {
+        alert("Success 201 : ")
+        localStorage.setItem("ticketId",response.ticketId );
+        localStorage.setItem("contestId",response.contestId );
+        router.push("http://localhost:3000/spinner");
+      } else if(res.status == "422") {
+        alert("Entered ticket id is invalid ")
+      }
+
+    }catch(err){
+      console.log(err);
+    }
+
+   
+    
+  };
+
 
   return (
     <>
@@ -83,7 +143,7 @@ export default function Home() {
                 </Link>
               ) : (
                 <div>
-                  <button>UserName : {user.name}</button>
+                  <button><FaUserTie/>{user.name}</button>
                 </div>
               )}
               <i class="uil uil-align-center-alt menu"></i>
@@ -111,10 +171,11 @@ export default function Home() {
                   <span>thétiptop</span> play <span>=</span> win<span>!</span>
                 </h1>
                 <div class="ticket-form">
-                  <form action="#">
-                    <input type="text" placeholder="Your ticket number" />
-                    <button>Check ticket</button>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <input type="text" placeholder="Your ticket number" {...register("ticketid")} className={`form-control ${errors.ticketid ? "is-invalid" : ""}`}/>
+                    <button type="submit">Check ticket</button>
                   </form>
+                  <div className="invalid-feedback2">{errors.ticketid?.message}</div>
                 </div>
               </div>
               <div class="ticket">
@@ -149,7 +210,7 @@ export default function Home() {
                       // style={{display: none}}
                     ></div>
                   </div>
-                  <footer className="indexfooter">
+                  {/* <footer className="indexfooter">
                     <div class="signup">
                       <div
                         class="mc-field-group"
@@ -183,7 +244,7 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                  </footer>
+                  </footer> */}
 
                   {/* real people should not fill this in and expect good things - do not remove this or risk form bot signups */}
                   <div

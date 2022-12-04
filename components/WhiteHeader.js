@@ -1,4 +1,5 @@
-const WhiteHeader = () => {
+const WhiteHeader = ({username}) => {
+
     return ( 
         <header>
         <div className="container">
@@ -6,11 +7,11 @@ const WhiteHeader = () => {
             <img src="/logo.svg" alt="" />
           </div>
           <div className="links">
-            <a href="#" className="active">HOME</a>
+            {/* <a href="#" className="active">HOME</a> */}
             <a href="#">legal notice contest</a>
           </div>
           <div className="dd">
-            <button><i className="uil uil-user"></i> user name</button>
+            <button><i className="uil uil-user">{username ===null? "user":username}</i> </button>
             <i className="uil uil-align-center-alt menu"></i>
           </div>
         </div>

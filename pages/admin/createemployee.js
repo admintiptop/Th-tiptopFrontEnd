@@ -5,8 +5,13 @@ import SideMenu from "../../components/SideMenu";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useRouter } from "next/router";
+
 
 const CreateEmployee = () => {
+
+  const router = useRouter();
+  
   const [name, SetName] = useState("");
   const [email, SetEmail] = useState("");
   const [passportNumber, SetPassportNumber] = useState();
@@ -24,7 +29,8 @@ const CreateEmployee = () => {
       body: JSON.stringify(e),
     }).then((res) => {
       if (res.status === 200) {
-        reset();
+
+        router.push("http://localhost:3000/admin/addemployee")
       }
     });
   };

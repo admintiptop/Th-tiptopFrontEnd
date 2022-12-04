@@ -5,6 +5,7 @@ import { RiKey2Fill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
+import Link from "next/link";
 
 const Signup = () => {
   const [name, setName] = useState();
@@ -40,12 +41,23 @@ const Signup = () => {
   };
 
   const isAuthenticated = async () => {
+
     try {
       const token = localStorage.getItem("accessToken");
       if (token != null) {
         let jwtSecretKey = "gfg_jwt_secret_key";
         const user = jwt.verify(token, jwtSecretKey);
-        router.push("http://localhost:3000");
+
+        if(user.userType==="User"){
+          router.push("http://localhost:3000");
+        }else if(user.userType==="Admin"){
+          router.push("http://localhost:3000/admin/contestlist");
+        }else if(user.userType==="Employee"){
+          router.push("http://localhost:3000");
+        }else{
+          router.push("http://localhost:3000");
+        }
+        
       } else {
         console.log("Not log");
       }
@@ -91,7 +103,7 @@ const Signup = () => {
   return (
     <>
       <div>
-        <header>
+        <header className="greenheader">
           <div className="container">
             <div className="logo">
               <img src="/logo-white.svg" alt="" />
@@ -103,7 +115,7 @@ const Signup = () => {
               <a href="#">legal notice contest</a>
             </div>
             <a href="#">
-              <button>Login</button>
+              <Link href='/login'><button>Login</button></Link>
             </a>
           </div>
         </header>
@@ -112,7 +124,7 @@ const Signup = () => {
             <form action="#" className="sign">
               <h1>Signup</h1>
               <div className="fild">
-                <div classNameName="i">
+                <div className="i">
                   <AiOutlineUser />
                 </div>
                 <input
@@ -124,7 +136,7 @@ const Signup = () => {
                 />
               </div>
               <div className="fild">
-                <div classNameName="i">
+                <div className="i">
                   <BsEnvelope />
                 </div>
                 <input
@@ -136,7 +148,7 @@ const Signup = () => {
                 />
               </div>
               <div className="fild">
-                <div classNameName="i">
+                <div className="i">
                   <FaRegIdCard />
                 </div>
                 <input
@@ -146,7 +158,7 @@ const Signup = () => {
                 />
               </div>
               <div className="fild">
-                <div classNameName="i">
+                <div className="i">
                   <RiKey2Fill />
                 </div>
                 <input
@@ -176,9 +188,9 @@ const Signup = () => {
             </form>
           </div>
         </main>
-        <footer>
+        {/* <footer>
           <div className="container"></div>
-        </footer>
+        </footer> */}
       </div>
     </>
   );

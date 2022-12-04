@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import SideMenu from "../../components/SideMenu";
 import { BsPlusLg } from 'react-icons/bs';
 import Link from "next/link";
-
+import axios from "axios";
 
 
 const ContestList = () => {
@@ -38,11 +38,13 @@ const ContestList = () => {
     }
   ]);
 
-  //   useEffect(() => {
-  //   axios
-  //     .get("https://jsonplaceholder.typicode.com/users")
-  //     .then(response => SetContests(response.data));
-  // }, []);
+    useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/v1/contests")
+      .then(response => {
+        console.log('responses are :', response.data);
+        SetContests(response.data)});
+  }, []);
 
   return (
     <div>
