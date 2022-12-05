@@ -9,6 +9,9 @@ const AddPrizes = () => {
   const [name, SetName] = useState();
   const [winningChance, SetWinningChance] = useState();
   useEffect(() => {
+    if (localStorage.getItem("accessToken") == null) {
+      router.push("http://localhost:3000/login")
+    }
       getPrices();
   }, []);
 
@@ -21,15 +24,23 @@ const AddPrizes = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const price = { name, winningChance };
-    await fetch('http://localhost:3001/api/v1/prices', {
+    const res=await fetch('http://localhost:3001/api/v1/prices', {
       method: 'POST',
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + localStorage.getItem("accessToken"), },
       body: JSON.stringify(price)
     }).then(res => {
       getPrices();
       SetName("");
       SetWinningChance("");
+
     })
+
+    // if (res.status == "422") {
+    //   alert("Price add operation failure");
+    //  }else if(res.status == "201"){
+    //    alert("Price added Successfully");
+    //     router.push("http://localhost:3000/admin/contestlist")
+    //  }
   }
  
   return (

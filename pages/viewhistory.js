@@ -9,17 +9,21 @@ const viewHistory = () => {
   const router = useRouter();
 
   const [userId, setUserId]=useState()
+  const [activeContestEndDate,setActiveContestEndDate]=useState();
 
     const isAuthenticated = async () => {
    
   };
 
   const [data,SetData]=useState([])
+  const [userName, setUserName] = useState(null);
 
   useEffect(() => {
     let userid
     let userType
     try {
+      let username = localStorage.getItem("username");
+      setUserName(username);
       const token = localStorage.getItem("accessToken");
       if (token != null) {
         let jwtSecretKey = "gfg_jwt_secret_key";
@@ -27,7 +31,7 @@ const viewHistory = () => {
         userid=user.userId
         userType=user.userType
         setUserId(user.userId)
-        console.log(user);
+      
       } else {
         router.push("http://localhost:3000/login");
       }
@@ -44,26 +48,33 @@ const viewHistory = () => {
       axios.get(`http://localhost:3001/api/v1/users/`+userid+`/history-requests`)
       .then((response)=> {
         SetData(response.data)
-        console.log(response.data);
+        if (response.data.length > 0) {
+          let endDate=response.data.filter((item)=>item.contestStatus ==="Active").map(element=>element.contestEndDate);
+          let date =new Date(endDate[0])
+
+          let format=date.getDay()+"."+date.getMonth()+"."+date.getFullYear()
+          setActiveContestEndDate(format);
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
     
     }
+
   }, []);
 
 
   return (
     <>
       <div className="headercontainer">
-        <WhiteHeader />
+        <WhiteHeader/>
       </div>
 
       <div className="viewhistorycontainer">
         <div className="contest-result">
           <h2>
-            costest result will be published on <span>30.01.2023</span>
+            costest result will be published on <span>{activeContestEndDate}</span>
           </h2>
         </div>
         <div className="winning-order">
@@ -78,7 +89,7 @@ const viewHistory = () => {
                 </tr>
 
                 { data.length>0 &&
-                data.map((myprize,index) => (
+                data.filter((item)=>item.prize.length > 0 && item.contestStatus === "Active").map((myprize,index) => (
                   <tr key={index}>
                     <td>{index+1}</td>
                     <td>{myprize.prize}</td>
@@ -103,7 +114,7 @@ const viewHistory = () => {
                 </tr>
                 {
                 data.length>0 &&
-                data.map((history,index) => (
+                data.filter((item)=> item.prize.length > 0 && item.contestStatus === "InActive" || item.contestStatus === "End").map((history,index) => (
                   <tr key={index}>
                     <td>{history.contestName}</td>
                     <td>{history.contestEndDate}</td>

@@ -41,23 +41,21 @@ const Signup = () => {
   };
 
   const isAuthenticated = async () => {
-
     try {
       const token = localStorage.getItem("accessToken");
       if (token != null) {
         let jwtSecretKey = "gfg_jwt_secret_key";
         const user = jwt.verify(token, jwtSecretKey);
 
-        if(user.userType==="User"){
+        if (user.userType === "User") {
           router.push("http://localhost:3000");
-        }else if(user.userType==="Admin"){
+        } else if (user.userType === "Admin") {
           router.push("http://localhost:3000/admin/contestlist");
-        }else if(user.userType==="Employee"){
+        } else if (user.userType === "Employee") {
           router.push("http://localhost:3000");
-        }else{
+        } else {
           router.push("http://localhost:3000");
         }
-        
       } else {
         console.log("Not log");
       }
@@ -90,6 +88,7 @@ const Signup = () => {
     if (res.status == "200") {
       const data = await res.json();
       localStorage.setItem("accessToken", data.accessToken);
+      alert("Successfully Registered");
       router.push("http://localhost:3000");
     } else {
     }
@@ -97,7 +96,7 @@ const Signup = () => {
 
   const googleAuth = () => {
     window.open("http://localhost:3001/api/v1/auth/google/callback", "_self");
-    alert("Hello");
+    // alert("Hello");
   };
 
   return (
@@ -114,9 +113,10 @@ const Signup = () => {
               </a>
               <a href="#">legal notice contest</a>
             </div>
-            <a href="#">
-              <Link href='/login'><button>Login</button></Link>
-            </a>
+
+            <Link href="/login">
+              <button>Login</button>
+            </Link>
           </div>
         </header>
         <main>
@@ -157,7 +157,8 @@ const Signup = () => {
                   onChange={(e) => setPassport(e.target.value)}
                 />
               </div>
-              <div className="fild">
+
+              {/* <div className="fild">
                 <div className="i">
                   <RiKey2Fill />
                 </div>
@@ -166,11 +167,26 @@ const Signup = () => {
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-              </div>
+              </div> */}
+              {isSocialSign === false ? (
+                <div className="fild">
+                  <div classNameName="i">
+                    <RiKey2Fill />
+                  </div>
+
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              ) : null}
+
               <button className="submit" onClick={(e) => signUp(e)}>
                 Signup
               </button>
-              <div className="social">
+
+              {/* <div className="social">
                 <button
                   onClick={(e) => {
                     googleAuth();
@@ -181,10 +197,36 @@ const Signup = () => {
                 <button>
                   <img src="/fb.svg" alt="" /> Facebook
                 </button>
-              </div>
-              <p className="ask">
+              </div> */}
+
+              {/* <p className="ask">
                 Already have an account? <a href="/login">Login</a>
-              </p>
+              </p> */}
+              {isSocialSign === false ? (
+                <>
+                  <div className="social">
+                    <button
+                      onClick={(e) => {
+                        googleAuth();
+                      }}
+                    >
+                      <img src="/google.svg" alt="" /> Google
+                    </button>
+
+                    <button
+                      onClick={(e) => {
+                        facebookAuth();
+                      }}
+                    >
+                      <img src="/fb.svg" alt="" /> Facebook
+                    </button>
+                  </div>
+
+                  <p className="ask">
+                    Already have an account? <a href="/login">Login</a>
+                  </p>
+                </>
+              ) : null}
             </form>
           </div>
         </main>

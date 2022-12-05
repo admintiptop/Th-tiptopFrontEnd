@@ -11,9 +11,10 @@ const Login = () => {
   const [password, setPassword] = useState();
   const router = useRouter();
 
-  const googleAuth = () => {
-    window.open("http://localhost:3001/api/v1/auth/google/callback", "_self");
-    alert("Hello");
+  const  googleAuth = async() => {
+  await  window.open("http://localhost:3001/api/v1/auth/google/callback", "_blank");
+  console.log("hello")
+    // alert("Hello");
   };
 
   const signIn = async (e) => {

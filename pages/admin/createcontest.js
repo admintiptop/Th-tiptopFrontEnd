@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { Alert } from "reactstrap";
 
 
 const CreateContest = () => {
@@ -20,6 +21,9 @@ const CreateContest = () => {
   const [buttonDisabled,SetButtonDisabled] =useState(true)
 
   useEffect(() => {
+    if (localStorage.getItem("accessToken") == null) {
+      router.push("http://localhost:3000/login")
+    }
     getPrices();
   
   }, [])
@@ -59,6 +63,7 @@ const CreateContest = () => {
   const [startDate,setstartDate] =useState('');
   const [endDate,setendDate] =useState('');
   const [numOfTickets,setNumOfTickets] =useState();
+  const [error,setError]=useState();
 
 
 
@@ -106,6 +111,7 @@ const CreateContest = () => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
       body: JSON.stringify({
         name:data.contestName,
@@ -117,6 +123,15 @@ const CreateContest = () => {
         status:"Active"
       }),
     });
+    
+    if (res.status == "422") {
+     alert("Entered Data is invalid");
+    }else if(res.status == "201"){
+      alert("Contest Created Successfully");
+       router.push("http://localhost:3000/admin/contestlist")
+    }
+
+   
    
     // alert('SUCCESS!! :-)\n\n' + JSON.stringify(data, null, 4));
 }

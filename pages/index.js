@@ -79,10 +79,8 @@ export default function Home() {
       });
 
       const response = await res.json();
-      console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",response)
-
+    
       if (res.status == "201") {
-        alert("Success 201 : ")
         localStorage.setItem("ticketId",response.ticketId );
         localStorage.setItem("contestId",response.contestId );
         router.push("http://localhost:3000/spinner");

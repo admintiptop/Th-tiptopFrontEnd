@@ -5,17 +5,19 @@ import jwt from "jsonwebtoken";
 import { useRouter } from "next/router";
 // import 'react-wheel-of-prizes/dist/index.css'
 import axios from "axios";
+import CountdownTimer from "../components/CountdownTimer";
 
 const Spinner = () => {
-    const router = useRouter();
+  const router = useRouter();
   const [segmants, setSegmants] = useState([]);
   const [segColor, setSegColor] = useState([]);
   const [user, setUser] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [dateTimeAfterThreeDays, setDate] = useState();
   let tried = false;
   useEffect(() => {
-    if (localStorage.getItem("ticketId") == null ) {
-        router.push("/viewhistory");
+    if (localStorage.getItem("ticketId") == null) {
+      router.push("/viewhistory");
     }
     getPrices();
     let username = localStorage.getItem("username");
@@ -30,20 +32,20 @@ const Spinner = () => {
         if (response.data.chooseprices.length > 0) {
           setSegmants(response.data.chooseprices);
           setColorsDynamically(response.data.chooseprices.length);
+
+          let time = new Date(response.data.endDate).getTime();
+          setDate(time);
         }
       });
-
   };
 
   const setColorsDynamically = (len) => {
-
-  //  console.log(segments.length);
+    //  console.log(segments.length);
     const colors = [];
     for (let i = 0; i < len; i++) {
       colors.push("#" + Math.floor(Math.random() * 16777215).toString(16));
     }
     setSegColor(colors);
-
   };
 
   //   const segColors = [
@@ -64,14 +66,10 @@ const Spinner = () => {
     const ticketId = localStorage.getItem("ticketId");
     const token = localStorage.getItem("accessToken");
 
-
     if (token != null) {
       let jwtSecretKey = "gfg_jwt_secret_key";
       const user = jwt.verify(token, jwtSecretKey);
-    
-
       userId = user.userId;
-      console.log("checkkkkkk",userId)
     } else {
       console.log("Not log");
     }
@@ -88,9 +86,9 @@ const Spinner = () => {
       .then((response) => {
         console.log(response.data);
         if (response.status == "204") {
-            localStorage.removeItem("ticketId");
-            localStorage.removeItem("contestId");
-            router.push("http://localhost:3000/viewhistory");
+          localStorage.removeItem("ticketId");
+          localStorage.removeItem("contestId");
+          router.push("http://localhost:3000/viewhistory");
         }
       });
   };
@@ -105,6 +103,7 @@ const Spinner = () => {
         <div className="container">
           <div className="block active">
             <div className="prize-board">
+              {segmants.length > 0 ?  <CountdownTimer targetDate={dateTimeAfterThreeDays} />: null}
               <h2>Prizes</h2>
               <div className="table">
                 <table>
