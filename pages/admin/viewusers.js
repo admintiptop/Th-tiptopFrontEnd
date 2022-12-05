@@ -2,44 +2,45 @@ import SideMenu from "../../components/SideMenu";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { BsPlusLg } from 'react-icons/bs';
+import axios from "axios";
 
 const ViewUsers = () => {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: "Name",
-      email: "Nassim1@gmail.com",
-      ticketId: "1231234561",
-      prize: "$42",
-    },
-    {
-      id: 2,
-      name: "Name",
-      email: "Usef1@gmail.com",
-      ticketId: "0001234561",
-      prize: "$79",
-    },
-    {
-      id: 3,
-      name: "Name",
-      email: "Nassim2@gmail.com",
-      ticketId: "7003123456",
-      prize: "$99",
-    },
-    {
-      id: 4,
-      name: "Name",
-      email: "Usef2@gmail.com",
-      ticketId: "1777234599",
-      prize: "$45",
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+  const [searchTerm,setsearchTerm]=useState();
+  const [searchUsers,setsearchUsers]=useState([]);
+  const [isSearch,setsearch]=useState(false);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("https://jsonplaceholder.typicode.com/users")
-  //     .then(response => setUsers(response.data));
-  // }, []);
+  useEffect(() => {
+    getUserList();
+    // axios.get("http://localhost:3001/api/v1/contest-participents")
+    //   .then(response => setUsers(response.data));
+  }, []);
+
+
+  const getUserList = async ()=>{
+   await axios.get("http://localhost:3001/api/v1/contest-participents")
+    .then(response => setUsers(response.data));
+  }
+
+  const search =(value)=>{
+    console.log(value);
+    let searchUsers=users.filter((item)=>item.name == value || item.email == value );
+    console.log(searchUsers)
+    if (value == "") {
+      console.log("awa")
+      setsearch(false);
+      getUserList();
+    }else{
+      console.log("awa-1")
+      // setUsers(searchUsers);
+      setsearchUsers(searchUsers);
+      setsearch(true);
+
+    }
+   
+
+  }
+  
 
   return (
     <div>
@@ -52,7 +53,7 @@ const ViewUsers = () => {
                 <div><h2>Contest Participents</h2></div>
                 <div>
                 <div className="search">
-                <input type="text" placeholder="Search" />
+                <input type="text" placeholder="Search" onChange={(e)=>search(e.target.value)} />
                 <button>
                   <FaSearch />
                 </button>
@@ -71,14 +72,21 @@ const ViewUsers = () => {
                       <th>Prize</th>
                     </tr>
 
-                    {users.map((users) => (
+                    {!isSearch? users.map((users) => (
                       <tr key={users.id}>
                         <td>{users.name}</td>
                         <td>{users.email}</td>
                         <td>{users.ticketId}</td>
                         <td>{users.prize}</td>
                       </tr>
-                    ))}
+                    )):searchUsers.map((users) => (
+                      <tr key={users.id}>
+                        <td>{users.name}</td>
+                        <td>{users.email}</td>
+                        <td>{users.ticketId}</td>
+                        <td>{users.prize}</td>
+                      </tr>
+                    )) }
                   </tbody>
                 </table>
               </div>

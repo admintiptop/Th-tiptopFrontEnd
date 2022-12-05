@@ -1,52 +1,80 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import WhiteHeader from "/components/WhiteHeader";
+import axios from "axios";
+
+import { useRouter } from "next/router";
+import jwt from "jsonwebtoken";
 
 const viewHistory = () => {
-  const [myprizes, Setmyprizes] = useState([
-    { id: 1, name: "tea bag", status: "pending" },
-    { id: 2, name: "green tea ", status: "pending" },
-    { id: 3, name: "tea bag", status: "pending" },
-    { id: 4, name: "Lemon tea", status: "pending" },
-    { id: 5, name: "Peach tea", status: "pending" },
-  ]);
+  const router = useRouter();
 
-  const [myhistory, Setmyhistory] = useState([
-    { id: 1,endDate:'20-05-2022' , contestName:'tea', name: "tea bag", contestDraw: "loose" },
-    { id: 2,endDate:'20-05-2022' , contestName:'mega tea ', name: "green tea ", contestDraw: "loose" },
-    { id: 3,endDate:'20-05-2022' , contestName:'tea prize', name: "tea bag", contestDraw: "won" },
-    { id: 4,endDate:'20-05-2022' , contestName:'mega tea 2', name: "Lemon tea", contestDraw: "loose" },
-    { id: 5,endDate:'20-05-2022' , contestName:'mega tea 3', name: "Peach tea", contestDraw: "loose" },
-  ]);
+  const [userId, setUserId]=useState()
+  const [activeContestEndDate,setActiveContestEndDate]=useState();
 
-  // useEffect(() => {
-  ////  get current contest end date
-  //   axios
-  //     .get("https://jsonplaceholder.typicode.com/users")
-  //     .then(response => setemployees(response.data));
+    const isAuthenticated = async () => {
+   
+  };
 
-  //   //get myprizes
-  //   axios
-  //     .get("https://jsonplaceholder.typicode.com/users")
-  //     .then(response => setemployees(response.data));
+  const [data,SetData]=useState([])
+  const [userName, setUserName] = useState(null);
 
-  ////   get myhistory
-  //     axios
-  //     .get("https://jsonplaceholder.typicode.com/users")
-  //     .then(response => setemployees(response.data));
+  useEffect(() => {
+    let userid
+    let userType
+    try {
+      let username = localStorage.getItem("username");
+      setUserName(username);
+      const token = localStorage.getItem("accessToken");
+      if (token != null) {
+        let jwtSecretKey = "gfg_jwt_secret_key";
+        const user = jwt.verify(token, jwtSecretKey);
+        userid=user.userId
+        userType=user.userType
+        setUserId(user.userId)
+      
+      } else {
+        router.push("http://localhost:3000/login");
+      }
+    } catch (err) {
+      console.log(err);
+      router.push("http://localhost:3000/login");
+    }
 
-  // }, []);
+    if (userType==='Admin'){
+      router.push("http://localhost:3000/admin/contestlist");
+    }else if(userType==='Employee'){
+      router.push("http://localhost:3000");
+    }else{
+      axios.get(`http://localhost:3001/api/v1/users/`+userid+`/history-requests`)
+      .then((response)=> {
+        SetData(response.data)
+        if (response.data.length > 0) {
+          let endDate=response.data.filter((item)=>item.contestStatus ==="Active").map(element=>element.contestEndDate);
+          let date =new Date(endDate[0])
+
+          let format=date.getDay()+"."+date.getMonth()+"."+date.getFullYear()
+          setActiveContestEndDate(format);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
+    }
+
+  }, []);
 
 
   return (
     <>
       <div className="headercontainer">
-        <WhiteHeader />
+        <WhiteHeader/>
       </div>
 
       <div className="viewhistorycontainer">
         <div className="contest-result">
           <h2>
-            costest result will be published on <span>30.01.2023</span>
+            costest result will be published on <span>{activeContestEndDate}</span>
           </h2>
         </div>
         <div className="winning-order">
@@ -60,11 +88,12 @@ const viewHistory = () => {
                   <th>Status</th>
                 </tr>
 
-                {myprizes.map((myprize) => (
-                  <tr key={myprize.id}>
-                    <td>{myprize.id}</td>
-                    <td>{myprize.name}</td>
-                    <td>{myprize.status}</td>
+                { data.length>0 &&
+                data.filter((item)=>item.prize.length > 0 && item.contestStatus === "Active").map((myprize,index) => (
+                  <tr key={index}>
+                    <td>{index+1}</td>
+                    <td>{myprize.prize}</td>
+                    <td>{myprize.prizeStatus}</td>
                   </tr>
                 ))}
               </tbody>
@@ -83,12 +112,14 @@ const viewHistory = () => {
                   <th>Prize</th>
                   <th>Contest draw</th>
                 </tr>
-                {myhistory.map((history) => (
-                  <tr key={history.id}>
+                {
+                data.length>0 &&
+                data.filter((item)=> item.prize.length > 0 && item.contestStatus === "InActive" || item.contestStatus === "End").map((history,index) => (
+                  <tr key={index}>
                     <td>{history.contestName}</td>
-                    <td>{history.endDate}</td>
-                    <td>{history.name}</td>
-                    <td>{history.contestDraw}</td>
+                    <td>{history.contestEndDate}</td>
+                    <td>{history.prize}</td>
+                    <td>{history.mainPrizeResult}</td>
                   </tr>
                 ))}
               </tbody>

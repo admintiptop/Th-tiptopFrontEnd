@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import SideMenu from "../../components/SideMenu";
 import { BsPlusLg } from 'react-icons/bs';
-
+import Link from "next/link";
+import axios from "axios";
 
 
 const ContestList = () => {
+
   const [contests, SetContests] = useState([
     {
       id: 1,
@@ -36,12 +38,15 @@ const ContestList = () => {
     }
   ]);
 
-  //   useEffect(() => {
-  //   axios
-  //     .get("https://jsonplaceholder.typicode.com/users")
-  //     .then(response => SetContests(response.data));
-  // }, []);
+    useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/v1/contests")
+      .then(response => {
+        console.log('responses are :', response.data);
+        SetContests(response.data)});
+  }, []);
 
+ 
   return (
     <div>
       <SideMenu />
@@ -51,7 +56,7 @@ const ContestList = () => {
             <div className="contest-list">
               <div className="headerwithbutton">
                 <div><h2>Contest List</h2></div>
-                <div><button><BsPlusLg/> New Contest</button></div>
+                <div><Link href='/admin/createcontest'><button><BsPlusLg/> New Contest</button></Link></div>
                 </div>
               
               <div className="table">
@@ -67,8 +72,9 @@ const ContestList = () => {
                       if (contest.status === "Active") {
                         return <tr key={contest.id}>
                           <td>{contest.name}</td>
-                          <td>{contest.startDate}</td>
-                          <td>{contest.endDate}</td>
+                          <td>{ new Date(contest.startDate).getDay()+"."+new Date(contest.startDate).getMonth()+"."+new Date(contest.startDate).getFullYear()}</td>
+                          <td>{ new Date(contest.endDate).getDay()+"."+new Date(contest.endDate).getMonth()+"."+new Date(contest.endDate).getFullYear() }</td>
+                
                           <td>
                             <button>View Contest</button>
                           </td>
@@ -76,8 +82,8 @@ const ContestList = () => {
                       } else if (contest.status === "InActive") {
                         return <tr key={contest.id}>
                           <td>{contest.name}</td>
-                          <td>{contest.startDate}</td>
-                          <td>{contest.endDate}</td>
+                          <td>{ new Date(contest.startDate).getDay()+"."+new Date(contest.startDate).getMonth()+"."+new Date(contest.startDate).getFullYear()}</td>
+                          <td>{ new Date(contest.endDate).getDay()+"."+new Date(contest.endDate).getMonth()+"."+new Date(contest.endDate).getFullYear() }</td>
                           <td>
                             <button>Select Final Prize winner</button>
                           </td>
@@ -85,8 +91,8 @@ const ContestList = () => {
                       } else {
                         return <tr key={contest.id}>
                           <td>{contest.name}</td>
-                          <td>{contest.startDate}</td>
-                          <td>{contest.endDate}</td>
+                          <td>{ new Date(contest.startDate).getDay()+"."+new Date(contest.startDate).getMonth()+"."+new Date(contest.startDate).getFullYear()}</td>
+                          <td>{ new Date(contest.endDate).getDay()+"."+new Date(contest.endDate).getMonth()+"."+new Date(contest.endDate).getFullYear() }</td>
                           <td>
                             End
                           </td>
