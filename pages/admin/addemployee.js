@@ -3,6 +3,7 @@ import SideMenu from "../../components/SideMenu";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { BsPlusLg } from 'react-icons/bs';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import Link from "next/link";
 import axios from "axios";
 
@@ -52,13 +53,28 @@ const AddEmployee = () => {
     
     }
   }, []);
-  // localhost:3001/api/v1/users
 
-  // useEffect(() => {
-  //   axios
-  //     .get("https://jsonplaceholder.typicode.com/users")
-  //     .then(response => setemployees(response.data));
-  // }, []);
+
+  const deleteRecord =(id)=>{
+    console.log("delete this id :" ,id)
+    axios.delete('http://localhost:3001/api/v1/users/'+id)
+    .then(response => 
+      console.log("deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee :",id)
+      )
+    .catch(error => {
+        console.error('There was an error!', error);
+    });
+  }
+//   async function deleteRecord(id) {
+//     await fetch('https://localhost:3001/api/v1/users/'+id, 
+//     { method: 'delete',
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//       Authorization: "Bearer " + localStorage.getItem("accessToken"),
+//     }  
+//   });
+// }
 
   return (
     <div>
@@ -78,12 +94,14 @@ const AddEmployee = () => {
                       <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Delete</th>
                       </tr>
                       {employees.length>0 &&
                       employees.filter((item)=>item.userType==="Employee").map((employee,index) => (
                         <tr key={index}>
                           <td>{employee.name}</td>
                           <td>{employee.email}</td>
+                          <td><center><div className="smalldelete"><button onClick={()=>deleteRecord(employee._id)}><RiDeleteBin6Line/></button></div></center></td>
                         </tr>
                       ))}
                     </tbody>

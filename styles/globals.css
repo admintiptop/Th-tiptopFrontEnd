@@ -235,7 +235,6 @@ main {
 }
 .sign button {
   width: 100%;
-  border-radius: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -761,7 +760,7 @@ label {
   font-size: 2rem;
 }
 #user-dashboard {
-  padding-bottom: 5rem;
+  padding-top: 8rem;
 }
 @media (max-width: 660px) {
   .side-nav {
@@ -1099,4 +1098,84 @@ label {
 
   line-height: 1rem;
 
+}
+
+.smalldelete button  {
+  background-color: rgb(251, 240, 240);
+  color: #ff0000;
+  padding: 5px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+
+}
+.smalledit button  {
+  background-color: rgb(251, 244, 236);
+  color: #f8a90b;
+  padding: 5px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.sidebarlogout button{
+width: 6rem;
+height: 6rem;
+background:red;
+align-items: center;
+justify-content: center;
+font-size: 3rem;
+padding: 1rem;
+border-radius: 15px;
+}
+.sidebarlogout p {
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: black;
+}
+
+.outerdd{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.contest-board {
+  width: 70rem;
+  background: white;
+  box-shadow: #64646f33 0px 7px 29px 0px;
+  padding: 2rem;
+  margin: 5rem auto;
+}
+.contest-board h2 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.contest-board p{
+  font-size: medium;
+  padding: 1rem;
+}
+.contest-board span{
+  font-weight: 600;
+}
+
+.rowofedit{
+  display: flex;
+  flex-direction: row;
+}
+
+.rowofedit .fild{
+width: 40rem;
+}
+
+.rowofeditInner{
+  width: 10rem;
+  color: #000;
+  font-weight: 600;
+  padding-top: 16px;
+  font-size: 1.5rem;
 }

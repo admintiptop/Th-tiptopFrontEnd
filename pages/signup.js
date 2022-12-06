@@ -170,7 +170,7 @@ const Signup = () => {
               </div> */}
               {isSocialSign === false ? (
                 <div className="fild">
-                  <div classNameName="i">
+                  <div className="i">
                     <RiKey2Fill />
                   </div>
 

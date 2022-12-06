@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import SideMenu from "../../components/SideMenu";
 import {BsPlusLg} from 'react-icons/bs';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from "axios";
+import { useRouter } from "next/router";
+
 
 const AddPrizes = () => {
-
+  const router = useRouter();
   const [prizes, SetPrizes] =useState();
   const [name, SetName] = useState();
   const [winningChance, SetWinningChance] = useState();
@@ -35,12 +38,19 @@ const AddPrizes = () => {
 
     })
 
-    // if (res.status == "422") {
-    //   alert("Price add operation failure");
-    //  }else if(res.status == "201"){
-    //    alert("Price added Successfully");
-    //     router.push("http://localhost:3000/admin/contestlist")
-    //  }
+  }
+
+  const deleteRecord =async(id)=>{
+    console.log("delete this id :" ,id)
+    await axios.delete(`http://localhost:3001/api/v1/prices/${id}`)
+    .then(response => 
+      {
+      getPrices();
+    }   
+      )
+    .catch(error => {
+        console.error('There was an error!', error);
+    });
   }
  
   return (
@@ -56,6 +66,7 @@ const AddPrizes = () => {
                   <th>Number</th>
                   <th>Prize name</th>
                   <th>Winning chance</th>
+                  <th>Delete</th>
                 </tr>
                 {
                   prizes?.map((prize,index = 0)=>(
@@ -63,6 +74,7 @@ const AddPrizes = () => {
                     <td>{index+1}</td>
                     <td>{prize.name}</td>
                     <td>{prize.winningChance}%</td>
+                    <td><center><div className="smalldelete"><button onClick={()=>deleteRecord(prize.id)}><RiDeleteBin6Line/></button></div></center></td>
                   </tr>
                   ))
                 }

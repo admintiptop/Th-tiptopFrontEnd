@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import {userDetails} from "./UserFacade";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const WhiteHeader = () => {
   const router = useRouter();
@@ -25,15 +26,22 @@ const WhiteHeader = () => {
     return ( 
         <header>
         <div className="container">
+          <div>
           <div className="logo">
             <img src="/logo.svg" alt="" />
           </div>
+
+          </div>
+          <div>
           <div className="links">
-            {/* <a href="#" className="active">HOME</a> */}
+            <Link href='/' className="active">HOME</Link>
             <a href="#">legal notice contest</a>
           </div>
+          </div>
+          
+          <div className="outerdd">
           <div className="dd">
-            <button><i className="uil uil-user">{user}</i> </button>
+            <Link href='/viewuser'><button><i className="uil uil-user">{user}</i></button></Link>
             <i className="uil uil-align-center-alt menu"></i>
           </div>
           <div class="dd">
@@ -49,6 +57,8 @@ const WhiteHeader = () => {
 
               <i class="uil uil-align-center-alt menu"></i>
             </div>
+          </div>
+
         </div>
       </header>
      );
