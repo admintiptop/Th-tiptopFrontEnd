@@ -5,6 +5,7 @@ import { RiKey2Fill } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
+import Head from "next/head";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -77,10 +78,20 @@ const Login = () => {
   return (
     <>
       <div>
+      <Head>
+        <title>Login | TheTipTop - Draw Contest</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="Login, Signin to win!.We ThéTipTop offers you  very high quality tea ranges with
+          company signature blends, detox teas, white teas, vegetable teas, infusions, etc.
+          All teas are organic and Handmade. To celebrate the opening of their 10th store, ThéTipTop would like to organize a draw-type contest. Buy greater than €49 worth tea to enter the contest."
+        />
+      </Head>
         <header className="greenheader">
           <div className="container">
             <div className="logo">
-              <img src="logo-white.svg" alt="" />
+              <img src="logo-white.svg" alt="logo - TheTopTip" />
             </div>
             <div className="links">
               <Link href="#" className="active">

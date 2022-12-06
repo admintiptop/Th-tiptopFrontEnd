@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
 import Link from "next/link";
+import Head from "next/head";
 
 const Signup = () => {
   const [name, setName] = useState();
@@ -102,6 +103,16 @@ const Signup = () => {
   return (
     <>
       <div>
+      <Head>
+        <title>TheTipTop - Draw Contest</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="Here is the signup for Tiptop draw. Enter you email or signup with google or facebook. We ThéTipTop offers you  very high quality tea ranges with
+          company signature blends, detox teas, white teas, vegetable teas, infusions, etc.
+          All teas are organic and Handmade. To celebrate the opening of their 10th store, ThéTipTop would like to organize a draw-type contest. Buy greater than €49 worth tea to enter the contest."
+        />
+      </Head>
         <header className="greenheader">
           <div className="container">
             <div className="logo">
@@ -158,16 +169,6 @@ const Signup = () => {
                 />
               </div>
 
-              {/* <div className="fild">
-                <div className="i">
-                  <RiKey2Fill />
-                </div>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div> */}
               {isSocialSign === false ? (
                 <div className="fild">
                   <div className="i">

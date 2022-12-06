@@ -1078,7 +1078,7 @@ label {
   font-size: 3rem;
   padding: 1rem;
   text-decoration: none;
-  color: #000;
+  color: rgb(255, 255, 255);
 }
 .show-counter-index .countdown {
   line-height: 7rem;

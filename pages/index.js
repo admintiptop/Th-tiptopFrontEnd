@@ -100,35 +100,23 @@ export default function Home() {
 
   return (
     <>
-      {/* <div className={styles.container}>
-       <h1>Hello</h1>
-       <Link href={'/login'}>login</Link>
-       <br/>
-       <Link href={'/signup'}>signup</Link>
-       <br/>
-       <Link href={'/viewuser'}>viewUserDetail</Link>
-       <br/>
-       <Link href={'/viewhistory'}>viewhistory</Link>
-       <br/>
-       <br/>
-       <Link href={'/admin/addemployee'}>addemployee</Link>
-       <br/>
-       <Link href={'/admin/addprizes'}>addprizes</Link>
-       <br/>
-       <Link href={'/admin/contestlist'}>contestlist</Link>
-       <br/>
-       <Link href={'/admin/viewusers'}>viewusers</Link>
-       <br/>
-       <Link href={'/admin/createcontest'}>createcontest</Link>
-       <BsEnvelope />
-     </div> */}
+      <Head>
+        <title>TheTipTop - Draw Contest - Buy and win</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="We ThéTipTop offers you  very high quality tea ranges with
+          company signature blends, detox teas, white teas, vegetable teas, infusions, etc.
+          All teas are organic and Handmade. To celebrate the opening of their 10th store, ThéTipTop would like to organize a draw-type contest. Buy greater than €49 worth tea to enter the contest."
+        />
+      </Head>
 
       <div>
         <header className="greenHeader">
           <div className="container">
             <div>
               <div className="logo">
-                <img src="/logo-white.svg" alt="" />
+                <img src="/logo-white.svg" alt="Logo - draw contest - TheTopTip" />
               </div>
             </div>
             <div>
@@ -200,10 +188,10 @@ export default function Home() {
                 </div>
               </div>
               <div className="ticket">
-                <img className="wheel" src="/wheel.png" alt="" />
+                <img className="wheel" src="/wheel.png" alt="Spinwheel - draw contest - TheTopTip" />
               </div>
             </div>
-            <img src="/leav.png" className="overlay" alt="" />
+            <img src="/leav.png" className="overlay" alt="Tea - draw contest - TheTopTip" />
           </div>
         </main>
         <div>
