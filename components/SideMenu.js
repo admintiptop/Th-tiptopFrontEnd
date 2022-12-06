@@ -4,11 +4,26 @@ import { AiFillGift } from "react-icons/ai";
 import { FaChartPie } from "react-icons/fa";
 import { IoLogOutSharp } from "react-icons/io5";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { logout } from "./UserFacade";
+
 
 const SideMenu = () => {
+  const router = useRouter();
+
+  // const logout = () => {
+  //   console.log('clicked')
+  //   try {
+  //     localStorage.removeItem("accessToken");
+  //     router.push("http://localhost:3000");
+  //     // setUser(null);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   return (
     <div className="side-nav">
-      <Link href={"/admin/contestlist"} className='tabWrap'>
+      <Link href={"/admin/contestlist"} className="tabWrap">
         <div className="tab">
           <div>
             <FaChartPie />
@@ -17,7 +32,7 @@ const SideMenu = () => {
         </div>
       </Link>
 
-      <Link href={"/admin/addprizes"} className='tabWrap'>
+      <Link href={"/admin/addprizes"} className="tabWrap">
         <div className="tab">
           <div>
             <AiFillGift />
@@ -26,7 +41,7 @@ const SideMenu = () => {
         </div>
       </Link>
 
-      <Link href={"/admin/viewusers"} className='tabWrap'>
+      <Link href={"/admin/viewusers"} className="tabWrap">
         <div className="tab">
           <div>
             <HiUserGroup />
@@ -35,7 +50,7 @@ const SideMenu = () => {
         </div>
       </Link>
 
-      <Link href={"/admin/addemployee"} className='tabWrap'>
+      <Link href={"/admin/addemployee"} className="tabWrap">
         <div className="tab">
           <div>
             <FaUserTie />
@@ -44,10 +59,8 @@ const SideMenu = () => {
         </div>
       </Link>
 
-      <div className="tab logout">
-        <div>
-          <IoLogOutSharp />
-        </div>
+      <div className="sidebarlogout">
+        <button onClick={()=>{logout();router.push("http://localhost:3000");}}><IoLogOutSharp /></button>
         <p>Log out</p>
       </div>
     </div>

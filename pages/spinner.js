@@ -145,9 +145,6 @@ const Spinner = () => {
           </div>
         </div>
       </section>
-      <footer>
-        <div className="container"></div>
-      </footer>
     </>
   );
 };

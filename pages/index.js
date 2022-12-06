@@ -11,6 +11,7 @@ import { FaUserTie } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { logout } from "../components/UserFacade";
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -31,14 +32,14 @@ export default function Home() {
     }
   };
 
-  const logout = async () => {
-    try {
-      localStorage.removeItem("accessToken");
-      setUser(null);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const logout = async () => {
+  //   try {
+  //     localStorage.removeItem("accessToken");
+  //     setUser(null);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   useEffect(() => {
     isAuthenticated();
@@ -125,15 +126,22 @@ export default function Home() {
       <div>
         <header className="greenHeader">
           <div class="container">
+
+            <div>
             <div class="logo">
               <img src="/logo-white.svg" alt="" />
             </div>
+            
+            </div>
+            <div>
             <div class="links">
               <a href="#" class="active">
                 HOME
               </a>
               <a href="#">legal notice contest</a>
             </div>
+            </div>
+            <div className="outerdd">
             <div class="dd">
               {user == null ? (
                 <Link href="/login">
@@ -141,7 +149,10 @@ export default function Home() {
                 </Link>
               ) : (
                 <div>
+                  <Link href='/viewuser'>
                   <button><FaUserTie/>{user.name}</button>
+                  </Link>
+                  
                 </div>
               )}
               <i class="uil uil-align-center-alt menu"></i>
@@ -159,6 +170,16 @@ export default function Home() {
 
               <i class="uil uil-align-center-alt menu"></i>
             </div>
+            </div>
+
+
+
+
+ 
+
+
+
+
           </div>
         </header>
         <main>

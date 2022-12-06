@@ -3,49 +3,43 @@ import SideMenu from "../../components/SideMenu";
 import { BsPlusLg } from 'react-icons/bs';
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 
 const ContestList = () => {
+  const router = useRouter();
 
-  const [contests, SetContests] = useState([
-    {
-      id: 1,
-      name: "Tea party 3",
-      startDate: "",
-      endDate: "",
-      status: "Active",
-    },
-    {
-      id: 2,
-      name: "Tea party 2",
-      startDate: "",
-      endDate: "",
-      status: "InActive",
-    },
-    {
-      id: 3,
-      name: "Mega TopTip",
-      startDate: "",
-      endDate: "",
-      status: "End",
-    },
-    {
-      id: 4,
-      name: "Tea party 1",
-      startDate: "",
-      endDate: "",
-      status: "End",
-    }
-  ]);
+  const [contests, SetContests] = useState([]);
+  const [activeContestExists, SetActiveContestExists] = useState(false)
 
     useEffect(() => {
     axios
       .get("http://localhost:3001/api/v1/contests")
       .then(response => {
         console.log('responses are :', response.data);
-        SetContests(response.data)});
+        SetContests(response.data);
+        ;
+      });
+      isActiveContestExist()
+      console.log(activeContestExists)
   }, []);
 
+  const isActiveContestExist =()=>{
+    let list = null;
+    list = contests.filter((item)=>item.status=="Active");
+    console.log('list of active contests :',list);
+    if (list.length>0){
+      console.log("value of list.length :",list.length )
+      SetActiveContestExists(true)
+    }
+    
+  }
+
+  const viewContest=(contestid)=>{
+    console.log('id',contestid)
+    router.push("http://localhost:3000/admin/"+contestid);
+
+  }
  
   return (
     <div>
@@ -56,7 +50,9 @@ const ContestList = () => {
             <div className="contest-list">
               <div className="headerwithbutton">
                 <div><h2>Contest List</h2></div>
-                <div><Link href='/admin/createcontest'><button><BsPlusLg/> New Contest</button></Link></div>
+                {!activeContestExists ?
+                  (<div><Link href='/admin/createcontest'><button><BsPlusLg/> New Contest</button></Link></div>)
+                :(<div><button disabled={true} style={{backgroundColor:'#B2BEB5'}}><BsPlusLg/> New Contest</button></div>)}
                 </div>
               
               <div className="table">
@@ -70,17 +66,17 @@ const ContestList = () => {
                     </tr>
                     {contests.map((contest) => {
                       if (contest.status === "Active") {
-                        return <tr key={contest.id}>
+                        return <tr key={contest._id}>
                           <td>{contest.name}</td>
                           <td>{ new Date(contest.startDate).getDay()+"."+new Date(contest.startDate).getMonth()+"."+new Date(contest.startDate).getFullYear()}</td>
                           <td>{ new Date(contest.endDate).getDay()+"."+new Date(contest.endDate).getMonth()+"."+new Date(contest.endDate).getFullYear() }</td>
                 
                           <td>
-                            <button>View Contest</button>
+                            <Link href='/admin/viewcurrentcontest'><button onClick={()=>{viewContest(contest._id);}}>View Contest</button></Link>
                           </td>
                         </tr>
                       } else if (contest.status === "InActive") {
-                        return <tr key={contest.id}>
+                        return <tr key={contest._id}>
                           <td>{contest.name}</td>
                           <td>{ new Date(contest.startDate).getDay()+"."+new Date(contest.startDate).getMonth()+"."+new Date(contest.startDate).getFullYear()}</td>
                           <td>{ new Date(contest.endDate).getDay()+"."+new Date(contest.endDate).getMonth()+"."+new Date(contest.endDate).getFullYear() }</td>
@@ -89,7 +85,7 @@ const ContestList = () => {
                           </td>
                         </tr>
                       } else {
-                        return <tr key={contest.id}>
+                        return <tr key={contest._id}>
                           <td>{contest.name}</td>
                           <td>{ new Date(contest.startDate).getDay()+"."+new Date(contest.startDate).getMonth()+"."+new Date(contest.startDate).getFullYear()}</td>
                           <td>{ new Date(contest.endDate).getDay()+"."+new Date(contest.endDate).getMonth()+"."+new Date(contest.endDate).getFullYear() }</td>
