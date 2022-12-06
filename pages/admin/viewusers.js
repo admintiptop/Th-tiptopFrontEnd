@@ -71,14 +71,14 @@ const ViewUsers = () => {
                       
                     </tr>
 
-                    {!isSearch? users.map((users) => (
+                    {!isSearch? users.filter(item=>item.prize!=='').map((users) => (
                       <tr key={users.id}>
                         <td>{users.name}</td>
                         <td>{users.email}</td>
                         <td>{users.ticketId}</td>
                         <td>{users.prize}</td>
                       </tr>
-                    )):searchUsers.map((users) => (
+                    )):searchUsers.filter(item=>item.prize!=='').map((users) => (
                       <tr key={users.id}>
                         <td>{users.name}</td>
                         <td>{users.email}</td>

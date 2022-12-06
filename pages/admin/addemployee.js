@@ -42,39 +42,33 @@ const AddEmployee = () => {
     }else if(userType==='Employee'){
       router.push("http://localhost:3000");
     }else{
-      axios.get(`http://localhost:3001/api/v1/users`)
-      .then((response)=> {
-        setemployees(response.data)
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      getempList()
     
     }
   }, []);
 
+const getempList =async()=>{
+ await axios.get(`http://localhost:3001/api/v1/users`)
+  .then((response)=> {
+    setemployees(response.data)
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
 
   const deleteRecord =(id)=>{
     console.log("delete this id :" ,id)
     axios.delete('http://localhost:3001/api/v1/users/'+id)
     .then(response => 
-      console.log("deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee :",id)
+      {console.log(id);
+        getempList()}
       )
     .catch(error => {
         console.error('There was an error!', error);
     });
   }
-//   async function deleteRecord(id) {
-//     await fetch('https://localhost:3001/api/v1/users/'+id, 
-//     { method: 'delete',
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//       Authorization: "Bearer " + localStorage.getItem("accessToken"),
-//     }  
-//   });
-// }
 
   return (
     <div>

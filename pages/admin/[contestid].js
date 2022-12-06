@@ -37,10 +37,10 @@ const ViewCurrentContest = () => {
                   <div className="contest-board">
           <h2>{contest.name}</h2>
           <div className="table">
-            <p><span>Contest Name : </span> {contest.name}</p>
-            <p><span>Start Date : </span> {contest.startDate}</p>
-            <p><span>End Date : </span> {contest.endDate}</p>
-            <p><span>Status : </span> {contest.status}</p>
+            <div className="outerrow"><div className="viewtb">Contest Name : </div> <div>{contest.name}</div></div>
+            <div className="outerrow"><div className="viewtb">Start Date : </div> <div>{contest.startDate}</div></div>
+            <div className="outerrow"><div className="viewtb">End Date : </div> <div>{contest.endDate}</div></div>
+            <div className="outerrow"><div className="viewtb">Status : </div> <div>{contest.status}</div></div>
 
           </div>
         </div>
