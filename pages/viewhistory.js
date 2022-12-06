@@ -43,7 +43,7 @@ const viewHistory = () => {
     if (userType==='Admin'){
       router.push("http://localhost:3000/admin/contestlist");
     }else if(userType==='Employee'){
-      router.push("http://localhost:3000");
+      router.push("http://localhost:3000/employee/changeprizestatus");
     }else{
       axios.get(`http://localhost:3001/api/v1/users/`+userid+`/history-requests`)
       .then((response)=> {

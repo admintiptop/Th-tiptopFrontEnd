@@ -4,18 +4,16 @@ import { useCountdown } from "./useCountdown";
 
 const ExpiredNotice = () => {
   return (
-    <div className="expired-notice">
-      <span>Expired!!!</span>
-      <p>Please select a future date and time.</p>
+    <div>
     </div>
   );
 };
 
 const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
-    <div className="show-counter">
+    <div className="show-counter-index">
       <div
-        className="countdown-link"
+        className="countdown-index"
       >
         <DateTimeDisplay value={days} type={"Days"} isDanger={days <= 3} />
         <p>:</p>
@@ -29,7 +27,7 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
   );
 };
 
-const CountdownTimer = ({ targetDate }) => {
+const CountdownTimerForIndex = ({ targetDate }) => {
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
 
   if (days + hours + minutes + seconds <= 0) {
@@ -46,4 +44,4 @@ const CountdownTimer = ({ targetDate }) => {
   }
 };
 
-export default CountdownTimer;
+export default CountdownTimerForIndex;

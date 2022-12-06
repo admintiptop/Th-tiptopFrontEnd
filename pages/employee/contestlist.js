@@ -50,9 +50,6 @@ const ContestList = () => {
             <div className="contest-list">
               <div className="headerwithbutton">
                 <div><h2>Contest List</h2></div>
-                {!activeContestExists ?
-                  (<div><Link href='/admin/createcontest'><button><BsPlusLg/> New Contest</button></Link></div>)
-                :(<div><button disabled={true} style={{backgroundColor:'#B2BEB5'}}><BsPlusLg/> New Contest</button></div>)}
                 </div>
               
               <div className="table">
@@ -68,8 +65,8 @@ const ContestList = () => {
                       if (contest.status === "Active") {
                         return <tr key={contest._id}>
                           <td>{contest.name}</td>
-                          <td>{contest.startDate.slice(0, 10)}</td>
-                          <td>{contest.endDate.slice(0, 10)}</td>
+                          <td>{ new Date(contest.startDate).getDay()+"."+new Date(contest.startDate).getMonth()+"."+new Date(contest.startDate).getFullYear()}</td>
+                          <td>{ new Date(contest.endDate).getDay()+"."+new Date(contest.endDate).getMonth()+"."+new Date(contest.endDate).getFullYear() }</td>
                 
                           <td>
                             <Link href='/admin/viewcurrentcontest'><button onClick={()=>{viewContest(contest._id);}}>View Contest</button></Link>
@@ -78,17 +75,17 @@ const ContestList = () => {
                       } else if (contest.status === "InActive") {
                         return <tr key={contest._id}>
                           <td>{contest.name}</td>
-                          <td>{contest.startDate.slice(0, 10)}</td>
-                          <td>{contest.endDate.slice(0, 10)}</td>
+                          <td>{ new Date(contest.startDate).getDay()+"."+new Date(contest.startDate).getMonth()+"."+new Date(contest.startDate).getFullYear()}</td>
+                          <td>{ new Date(contest.endDate).getDay()+"."+new Date(contest.endDate).getMonth()+"."+new Date(contest.endDate).getFullYear() }</td>
                           <td>
-                            <button>Select Final Prize winner</button>
+                            Inactive
                           </td>
                         </tr>
                       } else {
                         return <tr key={contest._id}>
                           <td>{contest.name}</td>
-                          <td>{contest.startDate.slice(0, 10)}</td>
-                          <td>{contest.endDate.slice(0, 10)}</td>
+                          <td>{ new Date(contest.startDate).getDay()+"."+new Date(contest.startDate).getMonth()+"."+new Date(contest.startDate).getFullYear()}</td>
+                          <td>{ new Date(contest.endDate).getDay()+"."+new Date(contest.endDate).getMonth()+"."+new Date(contest.endDate).getFullYear() }</td>
                           <td>
                             End
                           </td>

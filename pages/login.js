@@ -46,7 +46,7 @@ const Login = () => {
       }else if(user.userType==="Admin"){
         router.push("http://localhost:3000/admin/contestlist");
       }else if(user.userType==="Employee"){
-        router.push("http://localhost:3000");
+        router.push("http://localhost:3000/employee/changeprizestatus");
       }else{
         router.push("http://localhost:3000");
       }

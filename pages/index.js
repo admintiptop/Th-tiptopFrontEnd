@@ -12,9 +12,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { logout } from "../components/UserFacade";
+import CountdownTimerForIndex from "../components/CountdownTimerForIndex";
+import axios from "axios";
 
 export default function Home() {
   const [user, setUser] = useState(null);
+  const [dateTimeAfterThreeDays, setDate] = useState();
   const router = useRouter();
 
   const isAuthenticated = async () => {
@@ -32,16 +35,19 @@ export default function Home() {
     }
   };
 
-  // const logout = async () => {
-  //   try {
-  //     localStorage.removeItem("accessToken");
-  //     setUser(null);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const getTimerVal = async () => {
+    
+    await axios
+      .get(`http://localhost:3001/api/v1/contests/get-active-contest-requests`)
+      .then((response) => {
+          let time = new Date(response.data.endDate).getTime();
+          setDate(time);
+         console.log(response)
+      });
+  };
 
   useEffect(() => {
+    getTimerVal();
     isAuthenticated();
   }, []);
 
@@ -173,6 +179,7 @@ export default function Home() {
             <div className="row">
               <div className="content">
                 <h1 className="title">
+                  <div>{dateTimeAfterThreeDays!=null && <CountdownTimerForIndex targetDate={dateTimeAfterThreeDays} className="indexTimer" />}</div>
                   <span>thétiptop</span> play <span>=</span> win<span>!</span>
                 </h1>
                 <div className="ticket-form">
@@ -209,7 +216,7 @@ export default function Home() {
                 name="mc-embedded-subscribe-form"
                 className="validate"
                 target="_blank"
-                novalidate
+                noValidate
               >
                 <div id="mc_embed_signup_scroll">
                   <div id="mce-responses" className="clear foot">

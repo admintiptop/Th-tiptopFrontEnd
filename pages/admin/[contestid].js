@@ -4,10 +4,12 @@ import { BsPlusLg } from 'react-icons/bs';
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from 'next/router'
+import { userDetails } from "../../components/UserFacade";
 
 
 const ViewCurrentContest = () => {
   const router = useRouter()
+  const userType =userDetails().userType
   const { contestid } = router.query
  console.log('contestid :',contestid)
     const [contest,setContest]=useState([])
@@ -32,7 +34,8 @@ const ViewCurrentContest = () => {
               <div className="contest-list">
                 <div className="headerwithbutton">
                   <div><h2>Current Contest : {}</h2></div>
-                  <div><Link href='/admin/contestlist'><button> Back </button></Link></div>
+                  <div>{userType=="Admin"&&<Link href='/admin/contestlist'><button> Back </button></Link>}
+                  {userType=="Employee"&&<Link href='/employee/contestlist'><button> Back </button></Link>}</div>
                   </div>
                   <div className="contest-board">
           <h2>{contest.name}</h2>
