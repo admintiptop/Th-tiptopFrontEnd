@@ -44,7 +44,7 @@ const WhiteHeader = () => {
             <Link href='/viewuser'><button><i className="uil uil-user">{user}</i></button></Link>
             <i className="uil uil-align-center-alt menu"></i>
           </div>
-          <div class="dd">
+          <div className="dd">
               {user != null ? (
                 <button
                   onClick={() => {
@@ -55,7 +55,7 @@ const WhiteHeader = () => {
                 </button>
               ) : null}
 
-              <i class="uil uil-align-center-alt menu"></i>
+              <i className="uil uil-align-center-alt menu"></i>
             </div>
           </div>
 

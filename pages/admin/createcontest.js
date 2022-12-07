@@ -9,10 +9,9 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { Alert } from "reactstrap";
 
-
 const CreateContest = () => {
 
-
+  const router = useRouter();
   const [prize, SetPrize] = useState([])
     //after api call, you should write to prizes with a mew variable "checked"
   
