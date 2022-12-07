@@ -10,10 +10,18 @@ import { logout } from "./UserFacade";
 import { userDetails } from "./UserFacade";
 
 const SideMenu = () => {
+
+  const user = userDetails();
+  let userType
+if(!user){
+console.log("no user fron User Details")
+}else{
+  console.log("have User Details")
+  userType = user.userType
+}
   const router = useRouter();
-  const userType = userDetails().userType;
-
-
+  
+  // const userType=type
 
   return (
     <>

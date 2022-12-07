@@ -5,7 +5,6 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-
 const ContestList = () => {
   const router = useRouter();
 
@@ -13,15 +12,7 @@ const ContestList = () => {
   const [activeContestExists, SetActiveContestExists] = useState(false)
 
     useEffect(() => {
-    axios
-      .get("http://localhost:3001/api/v1/contests")
-      .then(response => {
-        console.log('responses are :', response.data);
-        SetContests(response.data);
-        ;
-      });
-      isActiveContestExist()
-      console.log(activeContestExists)
+      getcontests()
   }, []);
 
   const isActiveContestExist =()=>{
@@ -35,9 +26,24 @@ const ContestList = () => {
     
   }
 
+  const getcontests=()=>{
+    axios
+    .get("http://localhost:3001/api/v1/contests")
+    .then(response => {
+      console.log('responses are :', response.data);
+      SetContests(response.data);
+      ;
+    });
+    isActiveContestExist()
+    console.log(activeContestExists)
+  }
+
   const viewContest=(contestid)=>{
     console.log('id',contestid)
-    router.push("http://localhost:3000/admin/"+contestid);
+    if(contestid){
+      router.push("http://localhost:3000/admin/"+contestid);
+    }
+    
 
   }
  
@@ -81,7 +87,7 @@ const ContestList = () => {
                           <td>{contest.startDate.slice(0, 10)}</td>
                           <td>{contest.endDate.slice(0, 10)}</td>
                           <td>
-                            <button>Select Final Prize winner</button>
+                          <Link href='/admin/viewcurrentcontest'><button onClick={()=>{viewContest(contest._id);}}>Select Final Prize winner</button></Link>
                           </td>
                         </tr>
                       } else {

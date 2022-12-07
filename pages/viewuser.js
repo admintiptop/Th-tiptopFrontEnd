@@ -5,9 +5,11 @@ import WhiteHeader from "/components/WhiteHeader";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { userDetails } from "../components/UserFacade";
+import { logout } from "../components/UserFacade";
+import { useRouter } from "next/router";
 
 const ViewUser = () => {
-
+  const router = useRouter();
   const [data,setData] =useState([])
 
   useEffect( () => {
@@ -17,6 +19,24 @@ const ViewUser = () => {
         setData(response.data);})
 
   }, [])
+
+  const deleteMyAccount=()=>{
+    let isExecuted = confirm("Do you want to delete your account?");
+    const user = userDetails()
+    console.log(isExecuted);
+    if(isExecuted==true){
+      axios.delete('http://localhost:3001/api/v1/users/'+user.userId)
+      .then(response =>console.log('Deleted account.') )
+      .catch(error => {
+          console.error('There was an error!', error);
+      });
+      logout();
+      router.push("http://localhost:3000");
+    }else{
+      
+    }
+
+  }
 
   return (
       <div>
@@ -41,7 +61,7 @@ const ViewUser = () => {
                 </div>
                 <div className="buttons">
                   <Link href='/edituser'><button style={{backgroundColor:'#008039'}}>Edit details</button></Link>                 
-                <button>Delete Account</button>
+                <button onClick={()=>{deleteMyAccount()}}>Delete Account</button>
                 </div>
               </div>
             </div>

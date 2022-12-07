@@ -40,9 +40,14 @@ export default function Home() {
     await axios
       .get(`http://localhost:3001/api/v1/contests/get-active-contest-requests`)
       .then((response) => {
+        if(response.status=='404'){
+          setDate(null)
+        }else{
           let time = new Date(response.data.endDate).getTime();
           setDate(time);
          console.log(response)
+        }
+
       });
   };
 
@@ -121,10 +126,10 @@ export default function Home() {
             </div>
             <div>
               <div className="links">
-                <a href="#" className="active">
+                <Link href="#" className="active">
                   HOME
-                </a>
-                <a href="#">legal notice contest</a>
+                </Link>
+                <Link href="#">legal notice contest</Link>
               </div>
             </div>
             <div className="outerdd">

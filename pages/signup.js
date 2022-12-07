@@ -119,10 +119,10 @@ const Signup = () => {
               <img src="/logo-white.svg" alt="" />
             </div>
             <div className="links">
-              <a href="#" className="active">
+              <Link href="#" className="active">
                 HOME
-              </a>
-              <a href="#">legal notice contest</a>
+              </Link>
+              <Link href="#">legal notice contest</Link>
             </div>
 
             <Link href="/login">
@@ -187,22 +187,6 @@ const Signup = () => {
                 Signup
               </button>
 
-              {/* <div className="social">
-                <button
-                  onClick={(e) => {
-                    googleAuth();
-                  }}
-                >
-                  <img src="/google.svg" alt="" /> Google
-                </button>
-                <button>
-                  <img src="/fb.svg" alt="" /> Facebook
-                </button>
-              </div> */}
-
-              {/* <p className="ask">
-                Already have an account? <a href="/login">Login</a>
-              </p> */}
               {isSocialSign === false ? (
                 <>
                   <div className="social">
@@ -224,7 +208,7 @@ const Signup = () => {
                   </div>
 
                   <p className="ask">
-                    Already have an account? <a href="/login">Login</a>
+                    Already have an account? <Link href="/login">Login</Link>
                   </p>
                 </>
               ) : null}

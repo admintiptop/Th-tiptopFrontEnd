@@ -5,10 +5,11 @@ import Link from "next/link";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { userDetails } from '../components/UserFacade';
+import { useRouter } from "next/router";
 
 
 const EditUser = () => {
-
+  const router = useRouter();
   // const [data,setData] =useState([])
   const [name,setname] =useState('')
   const [email,setemail] =useState('')

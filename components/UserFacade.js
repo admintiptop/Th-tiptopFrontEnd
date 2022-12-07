@@ -18,10 +18,10 @@ export const userDetails =  () => {
 export const logout = async () => {
   try {
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("username");
-    localStorage.removeItem("email");
-    localStorage.removeItem("userType");
+    // localStorage.removeItem("userId");
+    // localStorage.removeItem("username");
+    // localStorage.removeItem("email");
+    // localStorage.removeItem("userType");
   } catch (err) {
     console.log(err);
   }

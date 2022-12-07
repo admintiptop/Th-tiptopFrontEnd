@@ -35,7 +35,7 @@ const WhiteHeader = () => {
           <div>
           <div className="links">
             <Link href='/' className="active">HOME</Link>
-            <a href="#">legal notice contest</a>
+            <Link href="#">legal notice contest</Link>
           </div>
           </div>
           
