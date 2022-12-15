@@ -29,7 +29,7 @@ const legalnotice = () => {
                         <h3>les atapes pour participer</h3>
                         <div className='check-item'>
                             <AiFillCheckSquare className='ai'/>
-                            <p>insourivez vous</p>
+                                <p>Inscrivez-vous </p>
                         </div>
                         <div className='check-item'>
                             <AiFillCheckSquare className='ai'/>
