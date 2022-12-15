@@ -37,7 +37,7 @@ const legalnotice = () => {
                         </div>
                         <div className='check-item'>
                             <AiFillCheckSquare className='ai'/>
-                            <p>insourivez vous</p>
+                            <p>S'inscrire</p>
                         </div>
                         <div className='check-item'>
                             <AiFillCheckSquare className='ai'/>
